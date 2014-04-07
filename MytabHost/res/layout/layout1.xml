@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical" android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	android:id="@+id/window">
+	<RelativeLayout
+	    android:orientation="horizontal"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_marginRight="5dip"
+	    android:layout_marginLeft="2dip"
+	    android:layout_marginTop="2dip"
+	    >
+	    
+	    <Button
+		    android:id="@+id/BtnReturn"
+		    android:layout_width="65dip"
+		    android:layout_height="wrap_content"
+		    android:gravity="center"
+		    android:textColor="@color/white"
+		    android:layout_alignParentRight="true"
+		    android:background="@drawable/corner_btnbg"
+	        />
+	    <AutoCompleteTextView
+		     android:id="@+id/acTextView"
+		     android:layout_width="200dip"
+		     android:layout_height="wrap_content"
+		     android:layout_alignParentTop="true"
+		     android:hint="输入指定的路口信息"
+		     android:singleLine="true"
+		     android:layout_gravity="left"
+		     android:layout_alignBaseline="@id/BtnReturn"
+	      />
+	 <Button
+	     android:id="@+id/BtnSearch"
+	     android:layout_width="42dip"
+	     android:layout_height="42dip"
+	     android:layout_toLeftOf="@+id/BtnReturn"
+	     android:layout_toRightOf="@id/acTextView"
+	     android:background="@drawable/searchbg"
+	     />
+	 
+	 
+	 </RelativeLayout>
+	 
+	
+	 <RelativeLayout
+	     android:layout_width="fill_parent"
+	     android:layout_height="wrap_content"
+	     android:orientation="horizontal"
+	     android:layout_marginLeft="5dip"
+	     android:layout_marginRight="5dip"
+	     >
+	 <Button
+	    android:id="@+id/TotalRoad1"
+	    android:layout_width="65dip"
+	    android:layout_height="wrap_content"
+	    android:text="全景" 
+	    android:gravity="center"
+	    android:textColor="@color/white"
+	    android:background="@drawable/corner_btnbg"
+	   />  
+	<Button
+	     android:id="@+id/TotalRoad2"
+	     android:layout_width="65dip"
+	     android:layout_height="wrap_content"
+	     android:layout_alignParentRight="true"
+	     android:layout_alignParentTop="true"
+	     android:text="全景" 
+	     android:gravity="center"
+	     android:textColor="@color/white"
+	     android:background="@drawable/corner_btnbg"
+	     />
+	</RelativeLayout>
+</LinearLayout>

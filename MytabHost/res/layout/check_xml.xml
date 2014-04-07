@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/click_selectot"
+    android:orientation="vertical" >
+    <TextView
+        android:id="@+id/checktext"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dip"
+        android:layout_marginLeft="20dip"
+        android:textSize="20dip"
+                />
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="20dip"
+        >
+        <Button
+            android:id="@+id/btnupdate"
+            android:text="点击更新"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_marginLeft="20dip"
+            />
+         <Button
+            android:id="@+id/btncancer2"
+            android:layout_toRightOf="@id/btnupdate"
+            android:text="取消"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_marginLeft="120dip"
+            />
+
+        </RelativeLayout>
+</LinearLayout>

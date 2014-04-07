@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>
+        {% block title %}{% endblock %}
+    </title>
+    <link rel="stylesheet" href="/static/css/bootstrap.css">
+     <link rel="stylesheet" href="/static/css/customize.css">
+    <script src="/static/js/modernizr-latest.js"></script>
+    <script src="/static/js/jquery-1.11.0.min.js"></script>
+    {% block extra_head %}
+    {% endblock %}
+</head>
+
+<body>
+    {% block body %}
+        {% block header %}
+            {% block menu %}
+            {# 这里放置菜单 (导航栏)  #}
+            {% endblock %}
+        {% endblock %}
+
+        <div class="container">
+        {% block content %}
+            {# 这个区块用来放置页面正文内容#}
+            <div class="container-fluid">
+                <div class="row-fluid">
+                    <div class="span12">
+                        {% block main %}
+                            {# 这里放置网页正文内容 #}
+                        {% endblock %}
+
+                    </div>
+                </div>
+            </div>
+        {% endblock %}
+        {% block footer %}
+           {# 每个页面页脚 #}
+        {% endblock %}
+    {% endblock %}
+    </div>
+    <script src="/static/js/bootstrap.min.js"></script>
+</body>
+</html>

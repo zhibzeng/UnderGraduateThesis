@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"     
+    >
+
+    <LinearLayout
+        android:id="@+id/menu_closeb"
+        android:layout_width="164dp"
+        android:layout_height="270dp"
+        android:gravity="top"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/windowtextb"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+           />
+
+        <LinearLayout
+            android:id="@+id/menu_close_btnb"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/menu_btn_bg"
+            android:gravity="top"
+            android:orientation="vertical"
+            android:layout_weight="6" >
+
+            <ImageView
+                android:id="@+id/pictureb"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                 />
+        </LinearLayout>
+        
+         <LinearLayout
+            android:id="@+id/ad1"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/menu_btn_bg"
+            android:gravity="top"
+            android:orientation="horizontal"
+             >
+
+            <ImageView
+                android:id="@+id/picture_ad1"
+                android:layout_width="30dip"
+                android:layout_height="30dip"
+                android:src="@drawable/kfc"
+                 />
+            <TextView
+                android:id="@+id/text_ad1"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/black"
+                android:text="肯德基打折消息"
+                />
+        </LinearLayout>
+        
+         <LinearLayout
+            android:id="@+id/ad2"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/menu_btn_bg"
+            android:gravity="top"
+            android:orientation="horizontal"
+           >
+
+            <ImageView
+                android:id="@+id/picture_ad2"
+                android:layout_width="30dip"
+                android:layout_height="30dip"
+                android:src="@drawable/mdl"
+                 />
+            <TextView
+                android:id="@+id/text_ad2"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/black"
+                android:text="麦当劳打折消息"
+                />
+        </LinearLayout>
+        
+        <Button
+            android:id="@+id/windowreturnb"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="点击返回" />
+    </LinearLayout>
+
+</LinearLayout>

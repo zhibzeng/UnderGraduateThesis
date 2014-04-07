@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical" android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	
+	android:id="@+id/window2">
+	<RelativeLayout
+	    android:orientation="horizontal"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content">
+	<Button
+	    android:id="@+id/BtnReturn2"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_gravity="left"
+	        />
+	 <AutoCompleteTextView
+	     android:id="@+id/acEditText2"
+	     android:layout_width="fill_parent"
+	     android:layout_height="wrap_content"
+	     android:layout_alignParentTop="true"
+	     android:layout_toLeftOf="@+id/BtnSearch2"
+	     android:layout_toRightOf="@id/BtnReturn2"
+	     android:hint="输入指定的公交站信息"
+	     android:singleLine="true"
+	     android:layout_alignBaseline="@id/BtnReturn2" />
+
+	 <Button
+	     android:id="@+id/BtnSearch2"
+	     android:layout_width="wrap_content"
+	     android:layout_height="wrap_content"
+	     android:layout_alignParentRight="true"
+	     android:layout_alignParentTop="true"
+	     android:text="搜索" />
+ 
+	 </RelativeLayout>
+	 
+	
+	 <RelativeLayout
+	     android:layout_width="fill_parent"
+	     android:layout_height="wrap_content"
+	     android:orientation="horizontal"
+	     >
+	 <Button
+	    android:id="@+id/TotalRoad12"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:text="全景" 
+	   />  
+	<Button
+	     android:id="@+id/TotalRoad22"
+	     android:layout_width="wrap_content"
+	     android:layout_height="wrap_content"
+	     android:layout_alignParentRight="true"
+	     android:layout_alignParentTop="true"
+	     android:text="全景" 
+	     />
+	</RelativeLayout>
+	
+</LinearLayout>

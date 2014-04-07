@@ -1,0 +1,52 @@
+.masthead-bg {
+position: absolute;
+top: 0;
+left: 0;
+min-width: 100%;
+height: 320px;
+text-shadow: 0 1px 3px rgba(0,0,0,0.4),0 0 30px rgba(0,0,0,0.075);
+background-repeat: repeat-x;
+background-image: -webkit-linear-gradient(45deg, #020031, #6d3353);
+background-image: -moz-linear-gradient(45deg, #020031, #6d3353);
+/* background-image: linear-gradient(45deg, #020031, #6d3353); */
+}
+
+.masthead-bg:after {
+content: '';
+display: block;
+position: absolute;
+top: 0;
+right: 0;
+bottom: 0;
+left: 0;
+background: url(../img/bs-docs-masthead-pattern.png) repeat center center;
+opacity: .4;
+}
+
+.carousel-caption {
+background:None;
+color:#fff;
+top:30%;
+bottom:20%;
+left: 15%;
+right: 15%;
+}
+
+.project-show-customize{
+margin-top: 35%;
+}
+.thumbnail {
+display: block;
+margin-left: auto;
+margin-right: auto;
+text-align: center;
+max-width: 310px;
+margin-bottom: 30px;
+}
+.thumbnail .caption {
+height: 200px;
+overflow-y: hidden;
+color: #555;
+}
+
+

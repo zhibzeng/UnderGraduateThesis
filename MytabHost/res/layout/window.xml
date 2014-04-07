@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"     
+    >
+
+    <LinearLayout
+        android:id="@+id/menu_close"
+        android:layout_width="164dp"
+        android:layout_height="331dp"
+        android:gravity="top"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/windowtext"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+           />
+
+        <LinearLayout
+            android:id="@+id/menu_close_btn"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/menu_btn_bg"
+            android:gravity="top"
+            android:orientation="vertical"
+            android:layout_weight="6" >
+
+            <ImageView
+                android:id="@+id/picture"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                 />
+        </LinearLayout>
+        
+         <LinearLayout
+            android:id="@+id/menu_close_btn2"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/menu_btn_bg"
+            android:gravity="top"
+            android:orientation="vertical"
+            android:layout_weight="6" >
+
+            <ImageView
+                android:id="@+id/picture2"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/windowreturn"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="点击返回" />
+    </LinearLayout>
+
+</LinearLayout>

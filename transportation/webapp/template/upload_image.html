@@ -1,0 +1,58 @@
+{% extends "web_base.html" %}
+{% block title %} 高架通信息系统管理中心 {% endblock %}
+
+{% block main %}
+
+<div class="well">
+<form class="form-horizontal" enctype="multipart/form-data" method='post',action='/upload/image/'>
+    {% csrf_token %}
+    <div class="control-group">
+           <label class="control-label" for="id_longitude">经度：</label>
+            <div class="controls">
+                 {{ form.longitude }}
+                 {% if form.longitude.errors %}
+                     <span class="help-inline">{{ form.longitude.errors }}</span>
+                 {% endif %}
+            </div>
+    </div>
+
+     <div class="control-group">
+           <label class="control-label" for="id_latitude">纬度：</label>
+            <div class="controls">
+                 {{ form.latitude }}
+                 {% if form.latitude.errors %}
+                     <span class="help-inline">{{ form.latitude.errors }}</span>
+                 {% endif %}
+            </div>
+    </div>
+
+      <div class="control-group">
+           <label class="control-label" for="id_notes">备注：</label>
+            <div class="controls">
+                 {{ form.notes }}
+                 {% if form.notes.errors %}
+                     <span class="help-inline">{{ form.notes.errors }}</span>
+                 {% endif %}
+            </div>
+    </div>
+
+     <div class="control-group">
+           <label class="control-label" for="id_title">文件：</label>
+            <div class="controls">
+                 {{ form.pic }}
+                 {% if form.pic.errors %}
+                     <span class="help-inline"> {{ form.pic.errors }}</span>
+                 {% endif %}
+            </div>
+    </div>
+
+    <div class="control-group">
+           <label class="control-label" for="id_title">操作：</label>
+            <div class="controls">
+                 <input type="submit",value="提交" class="btn btn-danger"/>
+            </div>
+    </div>
+
+</form>
+</div>
+{% endblock %}
