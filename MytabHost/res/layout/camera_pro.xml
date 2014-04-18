@@ -89,7 +89,18 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:orientation="horizontal" >
+        android:orientation="vertical" >
+        <EditText
+            android:id="@+id/camera_notes"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dip"
+        	android:layout_marginRight="10dip"
+            android:maxLength="100"  
+            android:inputType="textMultiLine" 
+            android:hint="请输入路况描述..."
+            />
+        
 		<ProgressBar
 		android:layout_marginTop="1dip"    
         android:layout_marginLeft="10dip"

@@ -7,31 +7,40 @@
 	<RelativeLayout
 	    android:orientation="horizontal"
 	    android:layout_width="fill_parent"
-	    android:layout_height="wrap_content">
-	<Button
-	    android:id="@+id/BtnReturn2"
-	    android:layout_width="wrap_content"
-	    android:layout_height="wrap_content"
-	    android:layout_gravity="left"
+	    android:layout_height="wrap_content">	
+	    <Button
+		    android:id="@+id/BtnReturn2"
+		    android:layout_width="60dip"
+		    android:layout_height="wrap_content"
+		    android:gravity="center"
+		    android:textColor="@color/white"
+		    android:layout_alignParentTop="true"
+		    android:layout_alignParentRight="true"
+		    android:background="@drawable/corner_btnbg"
+		    android:layout_marginRight="5dip"
 	        />
-	 <AutoCompleteTextView
+	 
+	  <AutoCompleteTextView
 	     android:id="@+id/acEditText2"
-	     android:layout_width="fill_parent"
+	     android:layout_width="210dip"
 	     android:layout_height="wrap_content"
-	     android:layout_alignParentTop="true"
-	     android:layout_toLeftOf="@+id/BtnSearch2"
-	     android:layout_toRightOf="@id/BtnReturn2"
+	     android:layout_alignBottom="@+id/BtnSearch2"
+	     android:layout_alignParentLeft="true"
+	     android:ems="10"
 	     android:hint="输入指定的公交站信息"
-	     android:singleLine="true"
-	     android:layout_alignBaseline="@id/BtnReturn2" />
+	     android:singleLine="true" >
+	     <requestFocus />
+	 </AutoCompleteTextView>
 
-	 <Button
+	  <Button
 	     android:id="@+id/BtnSearch2"
-	     android:layout_width="wrap_content"
-	     android:layout_height="wrap_content"
-	     android:layout_alignParentRight="true"
-	     android:layout_alignParentTop="true"
-	     android:text="搜索" />
+	     android:layout_width="42dip"
+	     android:layout_height="42dip"
+	     android:layout_toLeftOf="@+id/BtnReturn2"
+	     android:layout_toRightOf="@id/acEditText2"
+	      android:layout_alignParentTop="true"
+	     android:background="@drawable/searchbg"
+	     />
  
 	 </RelativeLayout>
 	 
@@ -40,20 +49,28 @@
 	     android:layout_width="fill_parent"
 	     android:layout_height="wrap_content"
 	     android:orientation="horizontal"
+	     android:layout_marginLeft="5dip"
+	     android:layout_marginRight="5dip"
 	     >
 	 <Button
 	    android:id="@+id/TotalRoad12"
-	    android:layout_width="wrap_content"
+	    android:layout_width="60dip"
 	    android:layout_height="wrap_content"
 	    android:text="全景" 
+	    android:gravity="center"
+	    android:textColor="@color/white"
+	    android:background="@drawable/corner_btnbg"
 	   />  
 	<Button
 	     android:id="@+id/TotalRoad22"
-	     android:layout_width="wrap_content"
+ 		 android:layout_width="60dip"
 	     android:layout_height="wrap_content"
 	     android:layout_alignParentRight="true"
 	     android:layout_alignParentTop="true"
 	     android:text="全景" 
+	     android:gravity="center"
+	     android:textColor="@color/white"
+	     android:background="@drawable/corner_btnbg"
 	     />
 	</RelativeLayout>
 	

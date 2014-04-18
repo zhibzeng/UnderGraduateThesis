@@ -1,6 +1,7 @@
 package com.example.mytabhost;
 
 
+import com.example.mytabhost.R;
 import com.example.mytabhost.camera.CramerProActivity;
 import com.example.mytabhost.map.LocationOverlay;
 

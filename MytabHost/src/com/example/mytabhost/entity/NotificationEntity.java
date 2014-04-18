@@ -1,4 +1,4 @@
-package com.example.mytabhost;
+package com.example.mytabhost.entity;
 import java.io.Serializable;
 public class NotificationEntity implements Serializable{
 	private static final long serialVersionUID = 1L;

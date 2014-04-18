@@ -1,4 +1,4 @@
-package com.example.mytabhost;
+package com.example.mytabhost.entity;
 
 import java.io.Serializable;
 

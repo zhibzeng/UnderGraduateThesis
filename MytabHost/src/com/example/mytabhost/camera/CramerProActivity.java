@@ -5,7 +5,6 @@ import java.util.Map;
 
 import com.baidu.mapapi.BMapManager;
 import com.baidu.mapapi.LocationListener;
-import com.example.mytabhost.HttpServer;
 import com.example.mytabhost.R;
 import com.example.mytabhost.util.CompressImage;
 import com.example.mytabhost.util.UploadUtil;
@@ -26,12 +25,14 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.example.mytabhost.map.BMapApiDemoApp;
+import com.example.mytabhost.HttpServer;
 
 
 //主要用于选择文件和上传文件操作
@@ -63,6 +64,7 @@ public class CramerProActivity extends Activity implements OnUploadProcessListen
 	private ProgressDialog progressDialog;
 	private String longitude = "";
 	private String latitude = "";
+	private EditText camera_notes;
 	//地图定位
 	LocationListener mLocationListener = null;//create时注册此listener，Destroy时需要Remove
 	
@@ -78,6 +80,7 @@ public class CramerProActivity extends Activity implements OnUploadProcessListen
         selectButton = (Button) findViewById(R.id.selectImage);
         uploadButton = (Button) findViewById(R.id.uploadImage);
         imageView = (ImageView) findViewById(R.id.imageView);
+        camera_notes = (EditText) findViewById(R.id.camera_notes);
         cramer=(ImageButton) findViewById(R.id.camera);        
         back=(Button) findViewById(R.id.back);
         back.setOnClickListener(camClickListener);
@@ -139,25 +142,25 @@ public class CramerProActivity extends Activity implements OnUploadProcessListen
 				startActivityForResult(intent1, TO_SELECT_PHOTO);
 				break;
 			case R.id.back:
-				AlertDialog.Builder builder = new Builder(CramerProActivity.this); 
-				 builder.setIcon(android.R.drawable.ic_dialog_info);
-			        builder.setMessage("确定要退出?"); 
-			        builder.setTitle("提示"); 
-			        builder.setPositiveButton("确认", 
-			                new android.content.DialogInterface.OnClickListener() { 
-			                    public void onClick(DialogInterface dialog, int which) { 
-			                        dialog.dismiss(); 
-			                        CramerProActivity.this.finish(); 
-			                    } 
-			                }); 
-			        builder.setNegativeButton("取消", 
-			                new android.content.DialogInterface.OnClickListener() { 
-			                    public void onClick(DialogInterface dialog, int which) { 
-			                        dialog.dismiss(); 
-			                    } 
-			                }); 
-			        		builder.create().show();
-				//MainActivity.this.finish();
+//				AlertDialog.Builder builder = new Builder(CramerProActivity.this); 
+//				 builder.setIcon(android.R.drawable.ic_dialog_info);
+//			        builder.setMessage("确定要退出?"); 
+//			        builder.setTitle("提示"); 
+//			        builder.setPositiveButton("确认", 
+//			                new android.content.DialogInterface.OnClickListener() { 
+//			                    public void onClick(DialogInterface dialog, int which) { 
+//			                        dialog.dismiss(); 
+//			                        CramerProActivity.this.finish(); 
+//			                    } 
+//			                }); 
+//			        builder.setNegativeButton("取消", 
+//			                new android.content.DialogInterface.OnClickListener() { 
+//			                    public void onClick(DialogInterface dialog, int which) { 
+//			                        dialog.dismiss(); 
+//			                    } 
+//			                }); 
+//			        		builder.create().show();
+			    CramerProActivity.this.finish(); 
 				break;
 			}
 
@@ -208,7 +211,14 @@ public class CramerProActivity extends Activity implements OnUploadProcessListen
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("longitude", longitude);
 		params.put("latitude", latitude);
-		params.put("notes", "this is remark");
+		String notestr = "";
+		notestr = camera_notes.getText().toString();
+		if(notestr.equals("")){
+			params.put("notes", "没有路况描述哦");
+		}else{
+			params.put("notes",notestr);
+		}
+		
 		uploadUtil.uploadFile( picPath,fileKey, requestURL,params);
 	}
 	

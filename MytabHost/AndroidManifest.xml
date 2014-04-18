@@ -3,7 +3,7 @@
     package="com.example.mytabhost"
     android:versionCode="1"
     android:versionName="1.0" >
-    <uses-sdk android:minSdkVersion="8" />
+    <uses-sdk android:minSdkVersion="13" />
     <!-- android:targetSdkVersion="17" -->
 
     <application
@@ -88,7 +88,6 @@
         <activity 
             android:name=".RoadConditions"
             android:label="@string/app_name" 
-            android:theme="@android:style/Theme.NoTitleBar"
             />
          
         <activity 
@@ -132,8 +131,24 @@
          <activity 
             android:name=".WeatherActivity" 
             android:label="@string/app_name" 
+            />
+         
+         <activity 
+            android:name=".SinaWeiboWebView" 
+            android:label="@string/app_name" 
             />  
        
+         
+        <!-- 百度语音导航 -->
+        <activity
+            android:name="com.baidu.navi.sdkdemo.DemoMainActivity"
+            android:configChanges="orientation|screenSize|keyboard|keyboardHidden"
+            android:label="@string/app_name" 
+            android:theme="@style/AppTheme"
+        />
+
+ 
+             
         </application>
     
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" >

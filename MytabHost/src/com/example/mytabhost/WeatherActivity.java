@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.json.JSONException;
 
+import com.example.mytabhost.entity.WeatherEntity;
 import com.example.mytabhost.map.LocationOverlay;
 
 import android.app.Activity;
@@ -24,7 +25,7 @@ public class WeatherActivity extends Activity {
 	private TextView twoDate,twoTemperature,twoWeather,twoWind;
 	private TextView threeDate,threeTemperature,threeWeather,threeWind;
 	private ProgressDialog myDialog;// 声明ProgressDialog类型变量
-	private List<WeatherEntity> lists = new ArrayList<WeatherEntity>();
+	private List<WeatherEntity> lists = null;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState){
@@ -91,7 +92,7 @@ public class WeatherActivity extends Activity {
 	
 	final Handler listHandler = new Handler() {
 		public void handleMessage(Message msg) {
-			if(lists.size()>0){
+			if(lists != null){
 				WeatherEntity entity1 = lists.get(0);
 				todayDate.setText(entity1.getDate());
 				todayTemperature.setText(entity1.getTemperature());

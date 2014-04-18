@@ -4,6 +4,7 @@
 	android:layout_width="fill_parent"
 	android:layout_height="fill_parent"
 	android:orientation="vertical"
+	android:background="@color/white"
     >
 <TabHost 
 	 android:id="@android:id/tabhost" 
@@ -11,16 +12,19 @@
 	android:layout_height="fill_parent"
 	>
 	<LinearLayout android:orientation="vertical"
-		android:layout_width="fill_parent" android:layout_height="fill_parent">
+		android:layout_width="fill_parent" 
+		android:layout_height="fill_parent">
 		<!-- 实现Tab标签的居底主要是通过设置属性 android:layout_weight="1" -->
 		<!-- 还要注意FrameLayout标签的位置，要写在TabWidget标签的前面 -->
 		<FrameLayout android:id="@android:id/tabcontent"
-			android:layout_weight="1" android:layout_width="fill_parent"
+			android:layout_weight="1" 
+			android:layout_width="fill_parent"
 			android:layout_height="fill_parent" />
 		<TabWidget android:id="@android:id/tabs"
-			android:layout_alignParentBottom="true" android:layout_width="fill_parent"
+			android:layout_alignParentBottom="true" 
+			android:layout_width="fill_parent"
 			android:layout_height="wrap_content" 
-	
+			android:showDividers="none"
 			/>
 	</LinearLayout>
 </TabHost>

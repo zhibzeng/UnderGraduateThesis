@@ -14,7 +14,7 @@ import android.graphics.BitmapFactory;
 import android.util.Log;
 
 public class HttpServer {
-	public static final String BASE_PATH="http://192.168.1.102:8000/";
+	public static final String BASE_PATH="http://192.168.1.101:8000/";
 
 	public void HttpServer(){}
 

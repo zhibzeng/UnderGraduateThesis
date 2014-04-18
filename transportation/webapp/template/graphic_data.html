@@ -1,0 +1,59 @@
+{% extends "web_base.html" %}
+{% block title %} 实时交通信息服务平台 {% endblock %}
+{% block main %}
+<script type="text/javascript">
+$(function () {
+        $('#graphic_data').highcharts({
+            title: {
+                text: '实时交通数据抓取详情',
+                x: -20 //center
+            },
+            subtitle: {
+                text: '来源：实时交通信息服务平台',
+                x: -20
+            },
+            xAxis: {
+                categories: ['1', '2', '3', '4', '5', '6',
+                    '7', '8', '9', '10']
+            },
+            yAxis: {
+                title: {
+                    text: '数据数目(条)'
+                },
+                plotLines: [{
+                    value: 0,
+                    width: 1,
+                    color: '#808080'
+                }]
+            },
+            tooltip: {
+                valueSuffix: '条'
+            },
+            legend: {
+                layout: 'vertical',
+                align: 'right',
+                verticalAlign: 'middle',
+                borderWidth: 0
+            },
+            series: [{
+                name: '路况播报',
+                data:  {{ datalistsone }}
+            }, {
+                name: '公示公告',
+                data: {{ dataliststwo }}
+            }, {
+                name: '道路信息',
+                data: {{ dataliststhree }}
+            }, {
+                name: '出行提示',
+                data: {{ datalistsfour }}
+            }, {
+                name: '实时路况',
+                data: {{ datalistsfive }}
+            }]
+        });
+    });
+ </script>
+<div id="graphic_data" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+ {{ graphic_data }}
+ {% endblock %}

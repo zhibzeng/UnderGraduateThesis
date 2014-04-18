@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 import org.json.JSONException;
 
+import com.example.mytabhost.R;
+import com.example.mytabhost.entity.NotificationEntity;
+
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;

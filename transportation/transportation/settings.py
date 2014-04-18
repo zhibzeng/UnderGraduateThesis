@@ -90,7 +90,7 @@ USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)
@@ -101,10 +101,10 @@ ADMIN_MEDIA_PREFIX = STATIC_URL + "grappelli/"
 # Set Template folder
 TEMPLATE_DIRS = (
      #替换成自己的templates目录 这里用的是绝对路径，也可以改成相对路径
-    'F:/GitRepository/transportation/webapp/template',
+    'F:/GitRepository/UnderGraduateThesis/transportation/webapp/template',
 )
 
 STATICFILES_DIRS = (
-    'F:/GitRepository/transportation/webapp/static',   #替换成自己的static 目录
+    'F:/GitRepository/UnderGraduateThesis/transportation/webapp/static',   #替换成自己的static 目录
 )
 

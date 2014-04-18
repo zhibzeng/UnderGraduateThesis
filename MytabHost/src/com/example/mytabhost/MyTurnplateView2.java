@@ -2,6 +2,8 @@ package com.example.mytabhost;
 
 import java.util.Timer;
 
+import com.example.mytabhost.R;
+
 import android.R.integer;
 import android.content.Context;
 import android.content.res.Resources;

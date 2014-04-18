@@ -9,11 +9,12 @@ from bs4 import BeautifulSoup
 from .functions import *
 import re
 import datetime
-from .models import Notification, Image, RoadCondition, Oil, Pic
+from .models import Notification, Image, RoadCondition, Oil, Pic,GraphicData
 from threading import Timer
 import cv2
 import numpy
 import os,os.path
+import sys
 from selenium import webdriver
 from .forms import UpLoadPicForm
 from django.views.decorators.csrf import csrf_exempt
@@ -40,14 +41,21 @@ def login(request):
             return render_to_response('login.html', RequestContext(request, {'form': form,}))
 
 
+
+
 @login_required
 def logout(request):
     auth.logout(request)
     return HttpResponseRedirect("/login/")
 
 
+
+
+
 def FetchNotification(requset):
-    #四川道路交通安全网 路况播报 公示公告 道路信息
+    #四川道路交通安全网 路况播报 公示公告 道路信息 出行提示
+    reload(sys)
+    sys.setdefaultencoding('utf8')
     domains = ['http://cd.scjtaq.com/lukuang.html','http://cd.scjtaq.com/gonggao.html','http://cd.scjtaq.com/daolu.html','http://cd.scjtaq.com/tishi.html']
     headers = {
         'User-Agent':'Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US; rv:1.9.1.6) Gecko/20091201 Firefox/3.5.6',
@@ -58,7 +66,7 @@ def FetchNotification(requset):
     typeindex = 1
     for domain in domains:
         page = FetchPage(domain, None, headers)
-        BS_Page = BeautifulSoup(page)
+        BS_Page = BeautifulSoup(page,from_encoding="utf-8")
 
         # parse the date
         pattern_date = re.compile(r'(.*>)(\d+\.\d+\.\d+)(<.*)')
@@ -66,7 +74,8 @@ def FetchNotification(requset):
         datelist = []
         for span in spans:
             #print(span.__str__('gb2312'))#将提取到的元素转为字符串
-            span = span.__str__('utf-8')
+            #span = span.__str__('utf-8')
+            span = span.__str__()
             m = pattern_date.match(span)
             if m:
                 datestring = []
@@ -80,7 +89,7 @@ def FetchNotification(requset):
         links = []
         newstitle = []
         for index,newslink in enumerate(newslinks):
-            newslink = newslink.__str__('utf-8')
+            newslink = newslink.__str__()
             m = pattern_link.match(newslink)
             if m:
                 links.append(m.group(2))
@@ -90,78 +99,98 @@ def FetchNotification(requset):
         newsContent = []
         for link in links:
             contentPage = FetchPage(link, None, headers)
-            BS_content = BeautifulSoup.BeautifulSoup(contentPage)
+            BS_content = BeautifulSoup(contentPage)
             tag = BS_content.html.find('div',{'class':'cont'})
             #print(tag.__str__('utf-8'))
             # Extract advertisement out of the content
-            contentStr = tag.__str__('utf-8')
+            contentStr = tag.__str__()
             pattern_content = re.compile(r'(.*)(<div class=\"ad\"><img.*\/><\/div>)(.*)')
-            m = pattern_content.match(tag.__str__('utf8'))
+            m = pattern_content.match(tag.__str__())
             if m :
                 #print(m.group(3))
                 contentStr = m.group(1)+m.group(3)
             newsContent.append(contentStr)
-            responseHtml = responseHtml+contentStr+'<br/>++++++++++++++++++++++++++++++++++++++++++++++++++++++++<br/><br/>'
+            responseHtml = responseHtml+contentStr+'<br/><br/><br/>'
+        graphic_count = 0
         # save notification to databases
         if len(links)==len(newstitle)==len(datelist):
             for index in range(len(links)):
                 #print newstitle[index]
-                newsEntity = Notification(domain=domain, type=str(typeindex), date=datelist[index], title=newstitle[index], content=newsContent[index])
-                newsEntity.save()
+                # newsEntity = Notification(domain=domain, type=str(typeindex), date=datelist[index], title=newstitle[index], content=newsContent[index])
+                # newsEntity.save()
+                obj, created = Notification.objects.get_or_create(domain=domain, type=str(typeindex), date=datelist[index], title=newstitle[index], content=newsContent[index])
+                if created:
+                    graphic_count += 1
+        graphic_data_entity = GraphicData(type=typeindex,count=graphic_count,time=datetime.datetime.now())
+        graphic_data_entity.save()
         typeindex += 1
 
     responseHtml = '<html><head>xxxx</head><body>'+responseHtml+'</body></html>'
     return HttpResponse(responseHtml)
 
 
+
+
+
 def FetchRoadCondition(request):
     #获取成都市公安局交通管理局路况信息
-    #fetchTimes = 0 # 第几次获取数据
-    totalPages = 3 # 一共要获取几个页面数据
+
     def RepeatFetch():
+        reload(sys)
+        sys.setdefaultencoding('utf8')
         duration = 100000 # repeat fetch notification per duration seconds
         Timer(duration, RepeatFetch).start()
         print "Starting fetch roadcondition..."
-        for pageNum in range(totalPages):
-            print('Starting fetch No.'+str(pageNum)+' page...')
-            domain = 'http://www.cdjg.gov.cn/WebService/TrffYdxx.aspx'
-            headers = {
-                'User-Agent':'Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US; rv:1.9.1.6) Gecko/20091201 Firefox/3.5.6',
-                'Referer':'http://www.cdjg.gov.cn/WebService/TrffYdxx.aspx',
-                'Origin':'http://www.cdjg.gov.cn',
-                       }
-            postdata = {
-                '__VIEWSTATE':'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',
-                '__EVENTTARGET':'ctl00$ContentPlaceHolder1$AspNetPager1',
-                '__EVENTARGUMENT':str(pageNum),
-                '__EVENTVALIDATION':'/wEdAAJ6YOkLMRh6X6WbncTIi4vT5UDzBtAvn5Vse6EOGRvssu3WfuOq+jTvpo7XLH+qFlwueVrFTA9B5Sfvtf9/hBPa',
-                'ctl00$ContentPlaceHolder1$hidXxlx':''
-                 }
-            page = FetchPage(domain, postdata, headers)
+        domain = 'http://www.cdjg.gov.cn/WebService/TrffYdxx.aspx'
+        driver = webdriver.PhantomJS()
+        driver.get(domain)
+        pagelist = []
+        pagelist.append(driver.page_source)
+        #print driver.page_source
+        divclass = driver.find_element_by_css_selector('#ContentPlaceHolder1_AspNetPager1')
+        links = divclass.find_elements_by_tag_name('a');
+        for i in links:
+            if i.text == '下一页':
+                divclass = i
+        nextlink = divclass
+        while nextlink.get_attribute('href'):
+            nextlink.click()
+            pagelist.append(driver.page_source)
+            #print driver.page_source
+            divclass = driver.find_element_by_css_selector('#ContentPlaceHolder1_AspNetPager1')
+            links = divclass.find_elements_by_tag_name('a');
+            for i in links:
+                if i.text == '下一页':
+                    divclass = i
+            nextlink = divclass
+        for page in pagelist:
             datetimeList = []
             contentList = []
-            BS_Page = BeautifulSoup(page)
+            BS_Page = BeautifulSoup(page,from_encoding="utf-8")
             # parse datetime string
             timestring = BS_Page.html.findAll('div',{'class':'ydxx_time'})
             for s in timestring:
-                time = datetime.datetime.strptime(s.contents[0].__str__('utf8').strip(),"%Y/%m/%d %H:%M:%S")
+                time = datetime.datetime.strptime(s.contents[0].__str__().strip(),"%Y/%m/%d %H:%M:%S")
                 datetimeList.append(time)
             # parse content string
             contentString = BS_Page.html.findAll('div',{'class':'ydxx_xx'})
             for s in contentString:
-                contentList.append(s.contents[0].__str__('utf8').strip())
+                contentList.append(s.contents[0].__str__().strip())
             # construct a roadcondition entity
             roadconditionList = []
+            graphic_count = 0
             if len(contentList)==len(datetimeList):
                 for index in range(len(contentList)):
-                    roadcondition = RoadCondition(domain=domain, datetime=datetimeList[index], content=contentList[index])
-                    roadconditionList.append(roadcondition)
-                    roadcondition.save()
+                    # create or do nothing if it doesn't exists
+                    obj, created = RoadCondition.objects.get_or_create(domain=domain, datetime=datetimeList[index], content=str(contentList[index]))
+                    if created:
+                        graphic_count += 1
                     print(contentList[index]+str(datetimeList[index]))
+            graphic_data_entity = GraphicData(type=5,count=graphic_count,time=datetime.datetime.now())
+            graphic_data_entity.save()
             print(len(roadconditionList))
-            print('No.'+str(pageNum)+' page fetch Successfully!')
-        #fetchTimes += 1
-        print('fetching is done!')
+            print('page fetch Successfully!')
+            print('fetching is done!')
 
     RepeatFetch()
     roadconditions = RoadCondition.objects.all()
@@ -169,6 +198,9 @@ def FetchRoadCondition(request):
     for r in roadconditions:
         responseHtml = responseHtml+'<br/>'+r.content+'--'+str(r.datetime)
     return HttpResponse(responseHtml)
+
+
+
 
 
 def VideoCaptureAndSavePic(request):
@@ -257,6 +289,35 @@ def uploadPic(request):
     return render_to_response('upload_image.html',{"form":form},context_instance=RequestContext(request))
 
 
+
+def GraphicDataFunc(request):
+    datalistsone = []
+    dataliststwo = []
+    dataliststhree = []
+    datalistsfour = []
+    datalistsfive = []
+    for index in [1,2,3,4,5]:
+        graphic_data = []
+        graphic_data = GraphicData.objects.filter(type=index).order_by('-id')[:10]
+        for data in graphic_data:
+            if index == 1:
+                datalistsone.append(int(data.count))
+            elif index==2:
+                dataliststwo.append(int(data.count))
+            elif index==3:
+                dataliststhree.append(int(data.count))
+            elif index==4:
+                datalistsfour.append(int(data.count))
+            else:
+                datalistsfive.append(int(data.count))
+    print datalistsone
+    print dataliststwo
+    print dataliststhree
+    print datalistsfour
+    print datalistsfive
+    return render_to_response('graphic_data.html', RequestContext(request,{'datalistsone': datalistsone,
+        'dataliststwo':dataliststwo,'dataliststhree':dataliststhree,'datalistsfour':datalistsfour,
+        'datalistsfive':datalistsfive,}))
 
 
 

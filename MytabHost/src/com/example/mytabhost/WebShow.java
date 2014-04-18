@@ -5,6 +5,7 @@ import java.util.List;
 import org.json.JSONException;
 
 import com.example.mytabhost.R.string;
+import com.example.mytabhost.entity.NotificationEntity;
 import com.iflytek.speech.SpeechError;
 import com.iflytek.speech.SynthesizerPlayer;
 import com.iflytek.speech.SynthesizerPlayerListener;
@@ -28,7 +29,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.example.mytabhost.NotificationEntity;
 
 public class WebShow extends Activity implements OnClickListener,SynthesizerPlayerListener{
 

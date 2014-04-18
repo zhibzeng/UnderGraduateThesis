@@ -1,5 +1,9 @@
 package com.example.mytabhost.camera;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+
 import com.example.mytabhost.R;
 
 import android.app.Activity;
@@ -68,6 +72,24 @@ public class SelectPicActivity extends Activity implements OnClickListener{
 			break;
 		}
 	}
+	
+	
+	public boolean hasImageCaptureBug() {
+
+	    // list of known devices that have the bug
+	    ArrayList<String> devices = new ArrayList<String>();
+	    devices.add("android-devphone1/dream_devphone/dream");
+	    devices.add("generic/sdk/generic");
+	    devices.add("vodafone/vfpioneer/sapphire");
+	    devices.add("tmobile/kila/dream");
+	    devices.add("verizon/voles/sholes");
+	    devices.add("google_ion/google_ion/sapphire");
+	    return devices.contains(android.os.Build.BRAND + "/" + android.os.Build.PRODUCT + "/"
+	            + android.os.Build.DEVICE);
+
+	}
+	
+	
 
 	/**
 	 * 拍照获取图片
@@ -78,17 +100,22 @@ public class SelectPicActivity extends Activity implements OnClickListener{
 		if(SDState.equals(Environment.MEDIA_MOUNTED))
 		{
 			
-			Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);//"android.media.action.IMAGE_CAPTURE"
-			/***
-			 * 需要说明一下，以下操作使用照相机拍照，拍照后的图片会存放在相册中的
-			 * 这里使用的这种方式有一个好处就是获取的图片是拍照后的原图
-			 * 如果不实用ContentValues存放照片路径的话，拍照后获取的图片为缩略图不清晰
-			 */
-			ContentValues values = new ContentValues();  
-			photoUri = this.getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);  
-			intent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, photoUri);
+			Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);//"android.media.action.IMAGE_CAPTURE"
+			if (hasImageCaptureBug()) {
+				intent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File("/sdcard/tmp")));
+			} else {
+				/***
+				 * 需要说明一下，以下操作使用照相机拍照，拍照后的图片会存放在相册中的
+				 * 这里使用的这种方式有一个好处就是获取的图片是拍照后的原图
+				 * 如果不实用ContentValues存放照片路径的话，拍照后获取的图片为缩略图不清晰
+				 */
+				ContentValues values = new ContentValues();  
+				photoUri = this.getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);  
+				intent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, photoUri);
+			}
+			
 			/**-----------------*/
-			startActivityForResult(intent, SELECT_PIC_BY_TACK_PHOTO);
+			SelectPicActivity.this.startActivityForResult(intent, SELECT_PIC_BY_TACK_PHOTO);
 		}else{
 			Toast.makeText(this,"内存卡不存在", Toast.LENGTH_LONG).show();
 		}
@@ -118,8 +145,27 @@ public class SelectPicActivity extends Activity implements OnClickListener{
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if(resultCode == Activity.RESULT_OK)
 		{
-			doPhoto(requestCode,data);
+			Log.d("start for result", "successfully");
+            if (hasImageCaptureBug()) {
+                File fi = new File("/sdcard/tmp");
+                try {
+                	picPath = android.provider.MediaStore.Images.Media.insertImage(getContentResolver(), fi.getAbsolutePath(), null, null);
+                    if (!fi.delete()) {
+                        Log.i("logMarker", "Failed to delete " + fi);
+                    }
+                    lastIntent.putExtra(KEY_PHOTO_PATH, picPath);
+        			setResult(Activity.RESULT_OK, lastIntent);
+        			finish();
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+            } else {
+            	doPhoto(requestCode,data);
+           }
+			
+		
 		}
+		
 		super.onActivityResult(requestCode, resultCode, data);
 	}
 	
@@ -142,7 +188,7 @@ public class SelectPicActivity extends Activity implements OnClickListener{
 			}
 		}
 		String[] pojo = {MediaStore.Images.Media.DATA};
-		Cursor cursor = managedQuery(photoUri, pojo, null, null,null);   
+		Cursor cursor = SelectPicActivity.this.getContentResolver().query(photoUri, pojo, null, null,null);   
 		if(cursor != null ){
 			int columnIndex = cursor.getColumnIndexOrThrow(pojo[0]);
 			cursor.moveToFirst();

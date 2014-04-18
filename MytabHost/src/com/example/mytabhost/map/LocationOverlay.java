@@ -39,11 +39,11 @@ import com.baidu.mapapi.MapView;
 import com.baidu.mapapi.MyLocationOverlay;
 import com.baidu.mapapi.OverlayItem;
 import com.baidu.mapapi.Projection;
+import com.example.mytabhost.R;
 import com.example.mytabhost.HttpServer;
 import com.example.mytabhost.NotificationActivity;
-import com.example.mytabhost.R;
-import com.example.mytabhost.SelfGeneratedTrafficPicEntity;
 import com.example.mytabhost.TransferData;
+import com.example.mytabhost.entity.SelfGeneratedTrafficPicEntity;
 
 public class LocationOverlay extends MapActivity {
 	

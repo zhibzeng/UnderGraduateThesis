@@ -50,14 +50,16 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.example.mytabhost.MyTurnplateView2.Point;
+
+import com.example.mytabhost.R;
+import com.example.mytabhost.db.DateBaseHelper;
 import com.example.mytabhost.MyTurnplateView2.OnTurnplateListener2;
+import com.example.mytabhost.MyTurnplateView2.Point;
 import com.example.mytabhost.RoadOne.BtnClickListener;
 import com.example.mytabhost.RoadOne.MyView;
 import com.example.mytabhost.TotalRoad.MyTouchListener;
 import com.example.mytabhost.TotalRoad.POINT;
 import com.example.mytabhost.TotalRoadBus.MyTouchListener2;
-import com.example.mytabhost.db.DateBaseHelper;
 
 
 

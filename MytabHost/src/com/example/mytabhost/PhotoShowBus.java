@@ -1,5 +1,6 @@
 package com.example.mytabhost;
 
+import com.example.mytabhost.R;
 import com.example.mytabhost.R.string;
 import com.iflytek.a.b;
 

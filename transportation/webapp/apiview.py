@@ -2,7 +2,7 @@
 from django.shortcuts import render_to_response,render,get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template.context import RequestContext
-from .models import Notification,RoadCondition,Oil,Pic
+from .models import Notification,RoadCondition,Oil,Pic,Crossing
 from django.utils import simplejson
 import datetime
 
@@ -64,4 +64,24 @@ def ApiPicList(request):
         Pics.append(pic_entity)
     PicList['info'] = Pics
     j = simplejson.dumps(PicList,ensure_ascii=False)
+    return HttpResponse(j)
+
+def ApiCrossingList(request):
+    type = 1 # type=1 内环顺时针 type=2外环逆时针
+    if request.method == 'GET':
+        type = request.GET.get('type',1)
+    crossingList = {}
+    crossings=[]
+    entities = Crossing.objects.filter(type=type).order_by('id')
+    for entity in entities:
+        crossing = {}
+        crossing['id'] = str(entity.id)
+        crossing['name'] = entity.name
+        crossing['type'] = str(entity.type)
+        crossing['longitude'] = entity.longitude
+        crossing['latitude'] = entity.latitude
+        crossing['labelid'] = entity.labelid
+        crossings.append(crossing)
+    crossingList['rows'] = crossings
+    j = simplejson.dumps(crossingList,ensure_ascii=False)
     return HttpResponse(j)

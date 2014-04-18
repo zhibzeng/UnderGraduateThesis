@@ -1,6 +1,13 @@
 package com.example.mytabhost;
 
+import java.io.IOException;
+import java.util.List;
 import java.util.Timer;
+
+import org.json.JSONException;
+
+import com.example.mytabhost.R;
+import com.example.mytabhost.entity.CrossingEntity;
 
 import android.R.color;
 import android.content.Context;
@@ -15,6 +22,7 @@ import android.graphics.Path;
 import android.graphics.RectF;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
@@ -29,16 +37,8 @@ import android.widget.Toast;
 
 
 /**
- * 
- *    
- * 类名称：TurnplateView   
- * 类描述：   
- * 创建人： zhoujun   
- * 创建时间：2011-11-29 上午10:49:27   
- * 修改人：Administrator   
- * 修改时间：2011-11-29 上午10:49:27   
- * 修改备注：   
- * @version    
+ * 二环路 内外环类
+ * @author Administrator
  *
  */
 public class MyTurnplateView extends View implements  OnTouchListener{
@@ -49,209 +49,86 @@ public class MyTurnplateView extends View implements  OnTouchListener{
 	public void setOnTurnplateListener(OnTurnplateListener onTurnplateListener) {
 		this.onTurnplateListener = onTurnplateListener;
 	}
-	/**
-	 * 画笔：点、线
-	 */
+	// 画笔：点、线
 	private Paint mPaint = new Paint();
-	/**
-	 * 画笔：圆
-	 */
+	//画笔：圆
 	private Paint paintCircle =  new Paint();
-	/**
-	 * 图标列表
-	 */
-	private static int  PONIT_NUM = 30;
-	private Bitmap[] icons = new Bitmap[31];
-	/**
-	 * point列表
-	 */
+	// 图标列表
+	private static int  roadtype = 1;//0 表示内圈 1表示外圈
+	//point列表
 	private Point[] points;
-	/**
-	 * 数目
-	 */
-	
-	/**
-	 * 圆心坐标
-	 */
+	//圆心坐标
 	private float mPointX=0, mPointY=0;
-	/**
-	 * 半径
-	 */
+	 //半径
 	private float mRadius = 0;
-	/**
-	 * 每两个点间隔的角度
-	 */
+	//每两个点间隔的角度
 	//private int mDegreeDelta;
 	private double mDegreeDelta;
-	/**
-	 * 每次转动的角度差
-	 */
+	// 每次转动的角度差
 	//private int tempDegree = 0;
 	private float tempDegree=0;
-	/**
-	 * 选中的图标标识 999：未选中任何图标
-	 */
+	//选中的图标标识 999：未选中任何图标
 	private int chooseBtn=999;
 	private Matrix mMatrix = new Matrix();  
 	//initangel为转过的角度
-	
 	private float Iangle=0;
+	//内环速度
+	private int speed0[]={15,64,78,23,44,45,76,87,37,12,98,34,13,53,12,46,68,24,89,34,56,79,21,35,69,20,36,94,30,98};
+	//外环速度
+	private int speed1[]={53,12,46,68,24,89,34,56,79,15,64,78,23,44,45,76,87,37,12,98,79,21,35,69,20,36,94,11};
+	private Context mContext = null;
+	//路口信息列表
+	public static List<CrossingEntity> CrossingListInner = null;
+	public static List<CrossingEntity> CrossingListOut = null;
+	//不同类型路口配置不同图片
+	private final static int PONITS_PICS[] = {
+		R.drawable.exits11,//labelid 1
+		R.drawable.exits21,//labelid 2
+		R.drawable.exits31,//labelid 3
+		R.drawable.enter11,//labelid 4
+		R.drawable.enter12,//labelid 5
+		R.drawable.enter13,//labelid 6
+		R.drawable.exits41,//labelid 7
+		};
 	
-	private int speed1[]={15,64,78,23,44,45,76,87,37,12,98,34,13,53,12,46,68,24,89,34,56,79,21,35,69,20,36,94,11,30};
-	private int speed2[]={53,12,46,68,24,89,34,56,79,15,64,78,23,44,45,76,87,37,12,98,79,21,35,69,20,36,94,11,30,98,34};
-	public MyTurnplateView(Context context, float px, float py, float radius,int num,float initangle) {
+	private int pointsize = 0;//路口数目
+	
+	/**
+	 * 类构造函数
+	 * @param context
+	 * @param px
+	 * @param py
+	 * @param radius
+	 * @param num
+	 * @param initangle
+	 * @throws IOException 
+	 * @throws JSONException 
+	 */
+	public MyTurnplateView(Context context, float px, float py, float radius,int num,float initangle) throws JSONException, IOException {
 		super(context);	
 		setLayout(context);
-		PONIT_NUM=num;
+		mContext = context;
+		roadtype=num;
 		mPaint.setColor(Color.RED);
 		mPaint.setStrokeWidth(2);
 		paintCircle.setAntiAlias(true);
 		paintCircle.setColor(Color.WHITE);
-		loadIcons();
 		mPointX = px;
 		mPointY = py;
 		mRadius = radius;
-			
 		Iangle=initangle;
-		
+		CrossingListInner = null;
+		CrossingListOut = null;
 		initPoints();
 		computeCoordinates();
 						
 	}
-	public void setLayout(Context context)
-	{
-		
-	}
 	
-	/**
-	 * 
-	 * 方法名：loadBitmaps 
-	 * 功能：装载图片
-	 * 参数：
-	 * @param key
-	 * @param d
-	 * 创建人：zhoujun  
-	 * 创建时间：2011-11-28
-	 */
-	public void loadBitmaps(int key,Drawable d){
-		Bitmap bitmap = Bitmap.createBitmap(80,80,Bitmap.Config.ARGB_8888);
-		Canvas canvas = new Canvas(bitmap);
-		Paint p=new Paint();
-		p.setColor(Color.RED);
-		p.setStrokeWidth(3);
-		
-		Paint p1=new Paint();
-		p1.setColor(Color.BLACK);
-		p1.setStrokeWidth(7);
-		
-		
-		d.setBounds(0, 0, 80, 80);
-		d.draw(canvas);
-		icons[key]=bitmap;
-	}
-	/**
-	 * 
-	 * 方法名：loadIcons 
-	 * 功能：获取所有图片
-	 * 参数：
-	 * 创建人：zhoujun  
-	 * 创建时间：2011-11-28
-	 */
-	public void loadIcons(){
-		Resources r = getResources();	
-		if(PONIT_NUM==30){
-			for(int i=0;i<PONIT_NUM;i++)
-			{
-				switch(i)
-				{
-				//入口
-				case 0:
-				case 2:loadBitmaps(i, r.getDrawable(R.drawable.enter1));break;
-				case 4:
-				case 5:
-				case 7:
-				case 9:loadBitmaps(i, r.getDrawable(R.drawable.enter3));break;
-				case 11:
-				case 13:
-				case 15:loadBitmaps(i, r.getDrawable(R.drawable.enter2));break;
-				case 19:
-				case 22:
-				case 24:				
-				case 26:	
-				case 28:loadBitmaps(i, r.getDrawable(R.drawable.enter1));break;
-				
-				//出口
-				
-				case 8:
-				case 10:loadBitmaps(i, r.getDrawable(R.drawable.exitr2));break;//出口右转
-				case 14:
-				case 16:
-				case 23:
-				case 1:loadBitmaps(i, r.getDrawable(R.drawable.exitr3));break;//出口右转	
-				case 6:
-				case 12:
-				case 17:
-				case 27:loadBitmaps(i, r.getDrawable(R.drawable.exitr1));break;//出口右转
-					
-				case 20:
-				case 21:loadBitmaps(i, r.getDrawable(R.drawable.exitl2));break;//出口左走
-				
-				case 29:loadBitmaps(i, r.getDrawable(R.drawable.exits3));break;//出口直走
-				case 18:loadBitmaps(i, r.getDrawable(R.drawable.exits2));break;//出口直走
-				case 3:loadBitmaps(i, r.getDrawable(R.drawable.exits1));break;//出口直走
-				
-				
-				case 25:loadBitmaps(i, r.getDrawable(R.drawable.exitfor1));break;//人南立交出口
-				}
-			
-			}
-		}
-		else if(PONIT_NUM==31){
-			for(int i=0;i<PONIT_NUM;i++)
-			{
-				switch(i)
-				{
-				case 4:loadBitmaps(i, r.getDrawable(R.drawable.exitl2));break;//出口左拐
-				case 22:loadBitmaps(i, r.getDrawable(R.drawable.exitl3));break;//出口左拐
-				case 25:loadBitmaps(i, r.getDrawable(R.drawable.exitl1));break;//出口左拐
-					
-				
-				case 7:loadBitmaps(i, r.getDrawable(R.drawable.exitr2));break;//出口右拐
-				case 8:
-				case 14:loadBitmaps(i, r.getDrawable(R.drawable.exitr3));break;//出口右拐
-				case 29:loadBitmaps(i, r.getDrawable(R.drawable.exitr1));break;//出口右拐
-					
-				case 0:
-				case 2:
-				case 5:
-				case 11:loadBitmaps(i, r.getDrawable(R.drawable.exits1));break;//出口直行
-				case 13:
-				case 17:loadBitmaps(i, r.getDrawable(R.drawable.exits2));break;//出口直行
-				case 19:
-				case 21:loadBitmaps(i, r.getDrawable(R.drawable.exits3));break;//出口直行
-				case 23:
-				case 27:loadBitmaps(i, r.getDrawable(R.drawable.exits1));break;//出口直行
-				
-				
-				case 1:
-				case 3:
-				case 6:
-				case 9:loadBitmaps(i, r.getDrawable(R.drawable.enter1));break;
-				case 10:	
-				case 12:loadBitmaps(i, r.getDrawable(R.drawable.enter2));break;
-				case 15:
-				case 16:
-				case 18:
-				case 20:loadBitmaps(i, r.getDrawable(R.drawable.enter1));break;
-				case 24:
-				case 26:loadBitmaps(i, r.getDrawable(R.drawable.enter3));break;
-				case 28:
-				case 30:loadBitmaps(i, r.getDrawable(R.drawable.enter1));break;
-				}
-			}
-		}
-	}
 	
+	public void setLayout(Context context){}
+	
+	
+
 	/**
 	 * 
 	 * 方法名：initPoints 
@@ -259,27 +136,81 @@ public class MyTurnplateView extends View implements  OnTouchListener{
 	 * 参数：
 	 * 创建人：zhoujun  
 	 * 创建时间：2011-11-28
+	 * @throws IOException 
+	 * @throws JSONException 
 	 */
 	 
-	private void initPoints() {
-		points = new Point[PONIT_NUM];
+	private void initPoints() throws JSONException, IOException {
+		Resources r = getResources();
+		TransferData transferData = new TransferData();
+		//判断是内环还是外环
+		if(roadtype==0){
+			//内环
+			CrossingListInner = transferData.getCrossingLists(mContext,roadtype);
+			pointsize = CrossingListInner.size();
+		}else{
+			//内环
+			CrossingListOut = transferData.getCrossingLists(mContext,roadtype);
+			pointsize = CrossingListOut.size();
+		}
+		points = null;
+		points = new Point[pointsize];
 		Point point;
-		
-		
 		float angle=Iangle;//初始化角度
-		
-		
-		mDegreeDelta =360.0/PONIT_NUM;
-		
-		for(int index=0; index<PONIT_NUM; index++) {
-			point = new Point();
-			point.angle = angle;
-			angle += mDegreeDelta;
-			point.bitmap = icons[index];
-			point.flag=index;
-			points[index] = point;		
+		mDegreeDelta =360.0/pointsize;
+		if(roadtype==0){
+			for(int index=0; index<pointsize; index++) {
+				CrossingEntity entity = CrossingListInner.get(index);
+				point = new Point();
+				point.angle = angle;
+				angle += mDegreeDelta;
+				point.bitmap = loadBitmaps(r.getDrawable(PONITS_PICS[entity.getLabelid()-1]));
+				point.flag=index;
+				point.entity = entity;
+				points[index] = point;
+				Log.d("MyTurnplate",index+":"+entity.getName());
+				
+			}
+		}else{
+			for(int index=0; index<pointsize; index++) {
+				CrossingEntity entity = CrossingListOut.get(index);
+				point = new Point();
+				point.angle = angle;
+				angle += mDegreeDelta;
+				point.bitmap = loadBitmaps(r.getDrawable(PONITS_PICS[entity.getLabelid()-1]));
+				point.flag=index;
+				point.entity = entity;
+				points[index] = point;
+				Log.d("MyTurnplate",index+":"+entity.getName());
+			}
 		}
 	}
+	
+	
+	/**
+	 * 
+	 * 方法名：loadBitmaps 
+	 * 功能：装载图片
+	 * 参数：
+	 * @param d
+	 * 创建人：zhoujun  
+	 * 创建时间：2011-11-28
+	 */
+	public Bitmap loadBitmaps(Drawable d){
+		Bitmap bitmap = Bitmap.createBitmap(80,80,Bitmap.Config.ARGB_8888);
+		Canvas canvas = new Canvas(bitmap);
+		Paint p=new Paint();
+		p.setColor(Color.RED);
+		p.setStrokeWidth(3);
+		Paint p1=new Paint();
+		p1.setColor(Color.BLACK);
+		p1.setStrokeWidth(7);
+		d.setBounds(0, 0, 80, 80);
+		d.draw(canvas);
+		return bitmap;
+	}
+	
+	
 	
 	/**
 	 * 
@@ -293,7 +224,7 @@ public class MyTurnplateView extends View implements  OnTouchListener{
 	 */	
 	public void resetPointAngle(float x, float y) {
 		float degree = computeMigrationAngle(x, y);
-		for(int index=0; index<PONIT_NUM; index++) {			
+		for(int index=0; index<pointsize; index++) {			
 			points[index].angle += degree;		
 			if(points[index].angle>360){
 				points[index].angle -=360;
@@ -313,7 +244,7 @@ public class MyTurnplateView extends View implements  OnTouchListener{
 	 */
 	public void computeCoordinates() {
 		Point point;
-		for(int index=0; index<PONIT_NUM; index++) {
+		for(int index=0; index<pointsize; index++) {
 			point = points[index];
 			point.x = mPointX+ (float)(mRadius * Math.cos(point.angle*Math.PI/180));
 			point.y = mPointY+ (float)(mRadius * Math.sin(point.angle*Math.PI/180));	
@@ -395,31 +326,35 @@ public class MyTurnplateView extends View implements  OnTouchListener{
 		
 		if ((eventx*eventx+eventy*eventy)>=(mRadius-offset)*(mRadius-offset)
 				&&(eventx*eventx+eventy*eventy)<=(mRadius+offset)*(mRadius+offset)) {//在点击在圆环上
-			if(PONIT_NUM==30){//表示内圈
-			for (int i = 0; i <PONIT_NUM ; i++) {
-				if (i==PONIT_NUM-1) {
+			if(roadtype==1){//表示外圈
+			Log.d("MyTurnplate roadtype",roadtype+" size:"+pointsize);
+			for (int i = 0; i <pointsize ; i++) {
+				if (i==pointsize-1) {
 					if (points[i].y<event.getY()&&points[0].y>event.getY()&&points[i].x>mPointX) {
+						//这里设置路口之间的速度
 						onTurnplateListener.onPointTouchRing(i,speed1[i]);
 						break;
 					}
 				}
-				if (points[i].y<event.getY()&&points[i+1].y>event.getY()&&points[i].x>mPointX&&i!=PONIT_NUM-1) {
+				if(points[i].y<event.getY()&&points[i+1].y>event.getY()&&points[i].x>mPointX&&i!=pointsize-1) {
 					onTurnplateListener.onPointTouchRing(i,speed1[i]);
 					break;
 				}
 			}
 			}
-			else if(PONIT_NUM==31)//表示外圈
+			else if(roadtype==0)//表示内圈
 			{
-				for (int i = 0; i <PONIT_NUM ; i++) {
-					if (i==PONIT_NUM-1) {
+				Log.d("MyTurnplate roadtype",roadtype+" size:"+pointsize);
+				for (int i = 0; i <pointsize ; i++) {
+					if (i==pointsize-1) {
 						if (points[i].y>event.getY()&&points[0].y>event.getY()&&points[i].x<mPointX) {
-							onTurnplateListener.onPointTouchRing(i,speed2[i]);
+							//这里设置路口之间的速度
+							onTurnplateListener.onPointTouchRing(i,speed0[i]);
 							break;
 						}
 					}
-					if (points[i].y>event.getY()&&points[i+1].y<event.getY()&&points[i].x<mPointX&&i!=PONIT_NUM-1) {
-						onTurnplateListener.onPointTouchRing(i,speed2[i]);      
+					if (points[i].y>event.getY()&&points[i+1].y<event.getY()&&points[i].x<mPointX&&i!=pointsize-1) {
+						onTurnplateListener.onPointTouchRing(i,speed0[i]);      
 						break;
 					}
 				}
@@ -449,6 +384,7 @@ public class MyTurnplateView extends View implements  OnTouchListener{
 	        }
 		return true;
 	}
+
 	
   	@Override
 	public void onDraw(Canvas canvas) {
@@ -458,7 +394,6 @@ public class MyTurnplateView extends View implements  OnTouchListener{
 		paintBlue.setAntiAlias(true);//消除锯齿
 		paintBlue.setStyle(Paint.Style.STROKE);// 风格为圆环
 		paintBlue.setStrokeWidth(20); // 圆环宽度
-		
 		
 		//红色
 		Paint paintRed = new Paint();
@@ -474,13 +409,12 @@ public class MyTurnplateView extends View implements  OnTouchListener{
 		paintOrange.setStyle(Paint.Style.STROKE);// 风格为圆环
 		paintOrange.setStrokeWidth(20); // 圆环宽度
 		
-		
+		//绿色
 		Paint paintGreen = new Paint();
 		paintGreen.setColor(Color.GREEN);
 		paintGreen.setAntiAlias(true);//消除锯齿
 		paintGreen.setStyle(Paint.Style.STROKE);// 风格为圆环
 		paintGreen.setStrokeWidth(20); // 圆环宽度
-		
 		
 		Paint paint2 = new Paint();
 		paint2.setColor(Color.rgb(40, 112, 33));//墨绿色
@@ -490,13 +424,10 @@ public class MyTurnplateView extends View implements  OnTouchListener{
 		paint2.setStyle(Paint.Style.FILL);
 		paint2.setTextSize(20);
 		
-		
 		Paint p=new Paint();
 		p.setColor(Color.BLACK);//墨绿色
 		p.setTextSize(30);
 		p.setAntiAlias(true);//消除锯齿  
-		
-		
 		
 		
 		//画箭头，即行车方向
@@ -532,56 +463,52 @@ public class MyTurnplateView extends View implements  OnTouchListener{
 			canvas.drawText("向", widthofscreen+15, mPointY+45, p);
 		}
 		
-	
-		
-		
-		
 		//canvas.drawCircle( mPointX, mPointY, mRadius, paint);
 		RectF oval=new RectF(mPointX-mRadius,mPointY-mRadius,mPointX+mRadius,mPointY+mRadius);
 		
 		
-		if(PONIT_NUM==30){
-		for(int index=0; index<PONIT_NUM; index++) {
+		if(roadtype==1){
+		for(int index=0; index<pointsize; index++) {
 			if(speed1[index]<=15)//红线
 			{
-				canvas.drawArc(oval, points[index].angle, 360/PONIT_NUM, false, paintRed);	
+				canvas.drawArc(oval, points[index].angle, 360/pointsize, false, paintRed);	
 			}
-			else if(speed1[index]>15&&speed1[index]<=40)
+			else if(speed1[index]>15&&speed1[index]<=30)
 			{
-				canvas.drawArc(oval, points[index].angle, 360/PONIT_NUM, false, paintOrange);	
+				canvas.drawArc(oval, points[index].angle, 360/pointsize, false, paintOrange);	
 			}
-			else if (speed1[index]>40&&speed1[index]<=60) {
-				canvas.drawArc(oval, points[index].angle, 360/PONIT_NUM, false, paintBlue);	
+			else if (speed1[index]>30&&speed1[index]<=50) {
+				canvas.drawArc(oval, points[index].angle, 360/pointsize, false, paintBlue);	
 			}
 			else 
 			{
-				canvas.drawArc(oval, points[index].angle, 360/PONIT_NUM, false, paintGreen);	
+				canvas.drawArc(oval, points[index].angle, 360/pointsize, false, paintGreen);	
 			}		
 		}
-		for (int index = 0; index < PONIT_NUM; index++) {
+		for (int index = 0; index < pointsize; index++) {
 			drawInCenter(canvas, points[index].bitmap, points[index].x, points[index].y,points[index].flag);
 			drwaText(canvas,index,points[index].x+50,points[index].y);	
 		}
 		}
-		else if(PONIT_NUM==31){
-			for(int index=0; index<PONIT_NUM; index++) {
-				if(speed2[index]<=15)//红线
+		else if(roadtype==0){
+			for(int index=0; index<pointsize; index++) {
+				if(speed0[index]<=15)//红线
 				{
-					canvas.drawArc(oval, points[index].angle, 360/PONIT_NUM, false, paintRed);	
+					canvas.drawArc(oval, points[index].angle, 360/pointsize, false, paintRed);	
 				}
-				else if(speed2[index]>15&&speed2[index]<=40)
+				else if(speed0[index]>15&&speed0[index]<=40)
 				{
-					canvas.drawArc(oval, points[index].angle, 360/PONIT_NUM, false, paintOrange);	
+					canvas.drawArc(oval, points[index].angle, 360/pointsize, false, paintOrange);	
 				}
-				else if (speed2[index]>40&&speed2[index]<=60) {
-					canvas.drawArc(oval, points[index].angle, 360/PONIT_NUM, false, paintBlue);	
+				else if (speed0[index]>40&&speed0[index]<=60) {
+					canvas.drawArc(oval, points[index].angle, 360/pointsize, false, paintBlue);	
 				}
 				else 
 				{
-					canvas.drawArc(oval, points[index].angle, 360/PONIT_NUM, false, paintGreen);	
+					canvas.drawArc(oval, points[index].angle, 360/pointsize, false, paintGreen);	
 				}
 			}
-			for(int index=0;index<PONIT_NUM;index++)
+			for(int index=0;index<pointsize;index++)
 			{
 				drawInCenter(canvas, points[index].bitmap, points[index].x, points[index].y,points[index].flag);
 				drwaText(canvas,index,points[index].x-50,points[index].y);			
@@ -595,78 +522,15 @@ public class MyTurnplateView extends View implements  OnTouchListener{
 		p1.setColor(Color.BLACK);
 		p1.setTextSize(30);
 		p1.setAntiAlias(true);//消除锯齿  
-		if(PONIT_NUM==30){
-			p1.setTextAlign(Align.LEFT);//靠右对齐 
-		switch(index)
-		{
-		case 29:canvas.drawText("龙腾东路出口", x, y, p1);break;
-		case 28:canvas.drawText("丽都路口入口", x, y, p1);break;
-		case 27:canvas.drawText("创业路出口", x, y, p1);break;
-		case 26:canvas.drawText("创业路入口", x, y, p1);break;
-		case 25:canvas.drawText("人南立交出口", x, y, p1);break;
-		case 24:canvas.drawText("人南立交入口", x, y, p1);break;
-		case 23:canvas.drawText("科华中路出口", x, y, p1);break;
-		case 22:canvas.drawText("科华中路入口", x, y, p1);break;
-		case 21:canvas.drawText("琉璃路出口", x, y, p1);break;
-		case 20:canvas.drawText("锦华路出口", x, y, p1);break;
-		case 19:canvas.drawText("龙舟路入口", x, y, p1);break;		
-		case 18:canvas.drawText("东大路出口",x, y, p1);break;
-		case 17:canvas.drawText("双庆桥出口", x, y, p1);break;
-		case 16:canvas.drawText("万年桥出口", x, y, p1);break;
-		case 15:canvas.drawText("东篱路入口", x, y, p1);break;
-		case 14:canvas.drawText("衫板桥立交出口", x, y, p1);break;
-		case 13:canvas.drawText("杉板桥立交入口", x, y, p1);break;
-		case 12:canvas.drawText("建设路出口", x, y, p1); break;
-		case 11:canvas.drawText("春木林入口", x, y, p1);break;
-		case 10:canvas.drawText("府青路出口", x, y, p1);break;
-		case 9:canvas.drawText("刃具立交入口", x, y, p1);break;
-		case 8:canvas.drawText("解放路出口", x, y, p1);break;
-		case 7:canvas.drawText("高笋塘入口", x, y, p1);break;
-		case 6:canvas.drawText("北新干道出口", x, y, p1);break;
-		case 5:canvas.drawText("北新干道入口", x, y, p1);break;
-		case 4:canvas.drawText("火车北站入口", x, y, p1);break;
-		case 3:canvas.drawText("九里堤出口", x, y, p1);break;
-		case 2:canvas.drawText("银沙路入口", x, y, p1);break;
-		case 1:canvas.drawText("茶店子出口", x, y, p1);break;
-		case 0:canvas.drawText("清溪西路入口",x, y, p1);break;
-		}
-		}
-		else if(PONIT_NUM==31){
+		if(roadtype==0){
 			p1.setTextAlign(Align.RIGHT);//靠左对齐 
-			switch(index)
-			{
-			case 0:canvas.drawText("大石西路出口", x, y, p1);break;
-			case 1:canvas.drawText("家园南路入口", x, y, p1);break;
-			case 2:canvas.drawText("抚琴西路出口", x, y, p1);break;
-			case 3:canvas.drawText("营兴街入口", x, y, p1);break;
-			case 4:canvas.drawText("茶店子出口", x, y, p1);break;
-			case 5:canvas.drawText("沙湾路出口", x, y, p1);break;
-			case 6:canvas.drawText("府河市场入口", x, y, p1);break;
-			case 7:canvas.drawText("北站东二路出口", x, y, p1);break;
-			case 8:canvas.drawText("北星大道出口", x, y, p1);break;
-			case 9:canvas.drawText("北新干道入口", x, y, p1);break;
-			case 10:canvas.drawText("红花北路入口", x, y, p1);break;		
-			case 11:canvas.drawText("府青路出口",x, y, p1);break;
-			case 12:canvas.drawText("府青路入口", x, y, p1);break;
-			case 13:canvas.drawText("建设路出口", x, y, p1);break;
-			case 14:canvas.drawText("杉板桥路出口", x, y, p1);break;
-			case 15:canvas.drawText("杉板桥路入口", x, y, p1);break;
-			case 16:canvas.drawText("双林北支路入口", x, y, p1);break;
-			case 17:canvas.drawText("双庆路 双桥路出口", x, y, p1); break;
-			case 18:canvas.drawText("牛市口入口", x, y, p1);break;
-			case 19:canvas.drawText("龙舟路出口", x, y, p1);break;
-			case 20:canvas.drawText("莲桂东路入口", x, y, p1);break;
-			case 21:canvas.drawText("净居寺路出口", x, y, p1);break;
-			case 22:canvas.drawText("科华中路出口", x, y, p1);break;
-			case 23:canvas.drawText("人民南路出口", x, y, p1);break;
-			case 24:canvas.drawText("玉林南街入口", x, y, p1);break;
-			case 25:canvas.drawText("创业路出口", x, y, p1);break;
-			case 26:canvas.drawText("创业路入口", x, y, p1);break;
-			case 27:canvas.drawText("高升桥路 出口", x, y, p1);break;
-			case 28:canvas.drawText("红牌楼路入口", x, y, p1);break;
-			case 29:canvas.drawText("武侯大道出口",x, y, p1);break;
-			case 30:canvas.drawText("成温立交入口",x, y, p1);break;
-			}
+			CrossingEntity entity = CrossingListInner.get(index);
+			canvas.drawText(entity.getName(), x, y, p1);
+		}
+		else if(roadtype==1){
+			p1.setTextAlign(Align.LEFT);//靠右对齐 
+			CrossingEntity entity = CrossingListOut.get(index);
+			canvas.drawText(entity.getName(), x, y, p1);
 		}
 	}
 	/**
@@ -694,6 +558,12 @@ public class MyTurnplateView extends View implements  OnTouchListener{
 		
 	}	
 	
+
+	/**
+	 *	路口图形点 
+	 * @author Administrator
+	 *
+	 */
 	class Point {
 		
 		/**
@@ -729,8 +599,8 @@ public class MyTurnplateView extends View implements  OnTouchListener{
 		 * 点与圆心的中心y坐标
 		 */
 		float y_c;
-		
 		boolean isCheck;
+		CrossingEntity entity;
 	}
 
 	 public static interface OnTurnplateListener {

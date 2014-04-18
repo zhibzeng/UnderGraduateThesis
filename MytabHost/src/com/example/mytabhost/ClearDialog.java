@@ -1,6 +1,8 @@
 package com.example.mytabhost;
 
 
+import com.example.mytabhost.R;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
@@ -22,7 +24,7 @@ public class ClearDialog extends Activity{
 		clear=(Button)findViewById(R.id.btnclear);
 		cancer=(Button)findViewById(R.id.btncancer);
 		textView=(TextView)findViewById(R.id.cleartext);
-		textView.setText("当前缓存为200M");
+		textView.setText("当前缓存为6.2M");
 		clear.setOnClickListener(new myDialogListener());
 		cancer.setOnClickListener(new myDialogListener());
 	}

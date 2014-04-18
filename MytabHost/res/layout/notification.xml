@@ -5,13 +5,13 @@
     android:orientation="vertical">
 <RelativeLayout
             android:layout_width="fill_parent"
-            android:layout_height="40dp"
+            android:layout_height="50dip"
             android:background="#00B2EE"
 			>
             <TextView 
                 android:id="@+id/notification_Info" 
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="40dip"
                 android:text="交通公告信息" 
                 android:layout_marginTop="8dp"
                 android:textColor="#ffffff"

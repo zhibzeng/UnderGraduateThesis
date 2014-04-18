@@ -13,10 +13,10 @@
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="navbar-inner">
             <div class="container">
-                <a class="brand" href="#">高架通信息管理系统</a>
+                <a class="brand" href="#">实时交通信息服务平台</a>
                 <ul class="nav">
                     <li class="active divider-vertical">
-                        <a href="#">首页</a>
+                        <a href="http://localhost:8000/">首页</a>
                     </li>
                     <li>
                         <a href="/admin/">数据管理</a>
@@ -27,6 +27,26 @@
                     <li>
                         <a href="#">联系我们</a>
                     </li>
+                    <li class='dropdown'>
+                        <a id="drop1" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">数据抓取<b class="caret"></b></a>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                                <li><a tabindex="-1" href="{% url 'FetchNotification' %}">交通公告信息</a></li>
+                                <li><a tabindex="-1" href="{% url 'FetchRoadCondition' %}">实时路况信息</a></li>
+                                <li><a tabindex="-1" href="{% url 'OilPrice' %}">油价信息</a></li>
+                                <li><a tabindex="-1" href="{% url 'VideoCapture' %}">路面交通监控</a></li>
+                                <li><a tabindex="-1" href="{% url 'GraphicDataFunc' %}">数据抓取监控</a></li>
+                        </ul>
+                    </li>
+
+                    <li class='dropdown'>
+                        <a id="drop1" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">API<b class="caret"></b></a>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                                <li><a tabindex="-1" href="{% url 'ApiNotificationList' %}">交通公告API</a></li>
+                                <li><a tabindex="-1" href="{% url 'ApiRoadConditionList' %}">实时路况API</a></li>
+                                <li><a tabindex="-1" href="{% url 'ApiOilPrice' %}">油价信息API</a></li>
+                                <li><a tabindex="-1" href="{% url 'ApiCrossingList' %}">路口信息API</a></li>
+                        </ul>
+                    </li>
 
                     {% if userform %}
                     <li class='dropdown'>
@@ -35,9 +55,13 @@
                                 <li><a tabindex="-1" href="{% url 'logout' %}">注销</a></li>
                                 <li><a tabindex="-1" href="#">动作2</a></li>
                                 <li><a tabindex="-1" href="#">动作3</a></li>
+                    </ul>
+                    </li>
+                    {% elif not userform %}
+                    <li>
+                        <a href="{% url 'login'%}">登录</a>
                     </li>
                     {% endif %}
-
                 </ul>
             </div>
         </div>
@@ -46,5 +70,5 @@
 {% endblock %}
 
 {% block footer %}
-    <p>PowerBy JeffreyTseng Southwest JiaoTong University</p>
+    <p>西南交通大学智能交通实验室 Southwest JiaoTong University</p>
 {% endblock %}

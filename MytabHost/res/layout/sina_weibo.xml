@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RelativeLayout
+     android:orientation="vertical" 
+     android:id="@+id/tab1" 
+     android:layout_width="fill_parent" 
+     android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+     <LinearLayout
+      
+        android:layout_width="fill_parent"
+        android:layout_height="50dip"
+        android:background="#00B2EE"
+        android:orientation="horizontal"
+        android:id="@+id/WeiboWebView_layout"
+        android:layout_alignParentTop="true"
+         >
+         
+        <TextView
+            android:id="@+id/weiboWebViewTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="40dip"
+            android:layout_marginLeft="120dip"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:text="微博动态"
+            android:textColor="@color/ivory"
+            android:textSize="20dp" />
+        <!-- 
+        <ImageView 
+             android:layout_width="40dip"
+             android:layout_height="40dip"
+             android:layout_marginTop="5dip"
+             android:layout_marginLeft="60dip"
+             android:src="@drawable/youth" 
+             />
+         -->
+    </LinearLayout>
+    
+   <LinearLayout 
+       	android:layout_height="fill_parent"
+       	android:layout_width="fill_parent"
+       	android:layout_below="@id/WeiboWebView_layout"
+       >
+       <WebView android:id="@+id/wv"
+    	android:layout_width="fill_parent"
+    	android:layout_height="fill_parent"
+    	 />
+       
+   </LinearLayout>
+           
+</RelativeLayout>

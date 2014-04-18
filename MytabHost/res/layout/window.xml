@@ -17,6 +17,8 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:textColor="@android:color/black"
+            android:text="实时交通"
+            android:gravity="center"
            />
 
         <LinearLayout
@@ -55,6 +57,8 @@
             android:id="@+id/windowreturn"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/corner_btnbg"
+            android:textColor="@color/white"
             android:text="点击返回" />
     </LinearLayout>
 

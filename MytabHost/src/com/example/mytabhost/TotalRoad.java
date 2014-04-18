@@ -95,7 +95,7 @@ public class TotalRoad extends View implements  OnTouchListener{
 	  //  Bitmap backgroundBitmap = ((BitmapDrawable)(getResources().getDrawable(R.drawable.hot))).getBitmap();
 	  //  canvas.drawBitmap(backgroundBitmap,0, 0, null);
 		Drawable drawable=getResources().getDrawable(R.drawable.hot);
-		drawable.setBounds(0, 80, 480, 640);
+		drawable.setBounds(0, 0, 480, 800);
 		//canvas.drawBitmap(drawable, 0, 0,null);
 		drawable.draw(canvas);
 		RectF oval=new RectF(mPointX-mRadius,mPointY-mRadius,mPointX+mRadius,mPointY+mRadius);
