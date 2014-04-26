@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.mytabhost"
+    android:versionCode="1"
+    android:versionName="1.0" >
+    <uses-sdk android:minSdkVersion="13" />
+    <!-- android:targetSdkVersion="17" -->
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/icon"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme"
+        android:name="com.example.mytabhost.map.BMapApiDemoApp" 
+         >
+        <activity
+            android:name="com.example.mytabhost.welcome"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/app_name" />
+        <activity
+            android:name=".RoadOne"
+            android:label="@string/app_name" />
+        <activity
+            android:name=".RoadTwo"
+            android:label="@string/app_name" />
+        <activity
+            android:name=".More"
+            android:label="@string/app_name" />
+        <activity
+            android:name=".Setting"
+            android:label="@string/app_name" />
+        <activity
+            android:name=".NotificationActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="sensor" >
+        </activity>
+        <activity
+            android:name=".WebShow"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="sensor" >
+        </activity>
+        <activity
+            android:name=".PhotoShow"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="sensor"
+            android:theme="@android:style/Theme.Dialog" >
+        </activity>
+        <activity
+            android:name=".PhotoShowBus"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="sensor"
+            android:theme="@android:style/Theme.Dialog" >
+        </activity>
+        <activity
+            android:name=".ClearDialog"
+            android:label="清楚记录"
+            android:theme="@android:style/Theme.Dialog" />
+        <activity
+            android:name=".CheckDialog"
+            android:label="检查更新"
+            android:theme="@android:style/Theme.Dialog" />
+        <activity
+            android:name=".SwitchViewDemoActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.NoTitleBar" />
+        <activity
+            android:name=".ViewPageActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.NoTitleBar" />
+        <activity
+            android:name=".MyWebView"
+            android:label="@string/app_name" 
+            />
+        
+        <activity 
+            android:name="TtsPreferenceActiviity"
+            android:label="@string/app_name" />
+        
+        <activity 
+            android:name=".RoadConditions"
+            android:label="@string/app_name" 
+            />
+         
+        <activity 
+            android:name=".AppCollecions"
+            android:label="@string/app_name" 
+            android:theme="@android:style/Theme.NoTitleBar"
+            />
+        
+        <activity 
+            android:name=".OilPrice"
+            android:label="@string/app_name" 
+            android:theme="@android:style/Theme.NoTitleBar"
+            />
+        
+         <activity 
+            android:name=".TrafficControl"
+            android:label="@string/app_name" 
+            android:theme="@android:style/Theme.NoTitleBar"
+            />
+      
+        <activity android:name="com.example.mytabhost.map.LocationOverlay" android:screenOrientation="sensor" 
+        	android:configChanges="orientation|keyboardHidden"> </activity>
+  
+       <!-- 路况随手拍 -->
+        <activity 
+            android:name="com.example.mytabhost.camera.SystemCatalogActivity"
+            android:label="@string/app_name" 
+            android:theme="@android:style/Theme.NoTitleBar"
+            />
+        <activity 
+            android:name="com.example.mytabhost.camera.CramerProActivity"
+            android:label="@string/app_name" 
+            android:theme="@android:style/Theme.NoTitleBar"
+            />
+        <activity 
+            android:name="com.example.mytabhost.camera.SelectPicActivity" 
+            android:theme="@style/DialogStyleBottom"
+            android:label="@string/app_name" 
+            />     
+            
+         <activity 
+            android:name=".WeatherActivity" 
+            android:label="@string/app_name" 
+            />
+         
+         <activity 
+            android:name=".SinaWeiboWebView" 
+            android:label="@string/app_name" 
+            />  
+       
+         
+        <!-- 百度语音导航 -->
+        <activity
+            android:name="com.baidu.navi.sdkdemo.DemoMainActivity"
+            android:configChanges="orientation|screenSize|keyboard|keyboardHidden"
+            android:label="@string/app_name" 
+            android:theme="@style/AppTheme"
+        />
+
+ 
+             
+        </application>
+    
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" >
+    </uses-permission>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" >
+    </uses-permission>
+    <uses-permission android:name="android.permission.INTERNET" >
+    </uses-permission>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" >
+    </uses-permission>
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" >
+    </uses-permission>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" >
+    </uses-permission>
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.USE_CREDENTIALS" />
+    <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
+    <uses-permission android:name="android.permission.AUTHENTICATE_ACCOUNTS" />
+    <uses-permission android:name="android.permission.BAIDU_LOCATION_SERVICE" >
+    </uses-permission>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" >
+    </uses-permission>
+    <uses-permission android:name="android.permission.ACCESS_MOCK_LOCATION" >
+    </uses-permission>
+    <!-- <uses-permission android:name="android.permission.WRITE_APN_SETTINGS"></uses-permission> -->
+	<uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" >
+    </uses-permission>
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_GPS" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.READ_SMS" />
+    <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.BROADCAST_STICKY" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+       <!-- 来电消音 -->
+    <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS" >
+    </uses-permission>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <!-- 写入扩展存储，向扩展卡写入数据，用于写入离线定位数据-->
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>
+	<!-- 访问网络，网络定位需要上网-->
+	<uses-permission android:name="android.permission.INTERNET" />
+	<!-- SD卡读取权限，用户写入离线定位数据-->
+	<uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"></uses-permission>
+	<!-- 允许应用读取低级别的系统日志文件-->
+	<uses-permission android:name="android.permission.READ_LOGS"></uses-permission>
+    <supports-screens
+        android:anyDensity="true"
+        android:largeScreens="true"
+        android:normalScreens="true"
+        android:resizeable="true"
+        android:smallScreens="true" />
+
+</manifest>
