@@ -16,6 +16,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.TabHost;
 import android.widget.TabWidget;
 import android.widget.TextView;
@@ -70,7 +71,12 @@ public class MainActivity extends TabActivity
         float width1 = (float) (tab1_drawable.getIntrinsicWidth()*0.9);
         float height1= (float) (tab1_drawable.getIntrinsicHeight()*0.9);
         Drawable realDrawable1 = CompressImage.zoomDrawable(tab1_drawable,width1,height1);
-        layout1spec.setIndicator("二环交通",realDrawable1);
+        View indicator_1 = this.getLayoutInflater().inflate(R.layout.tab_indicator, null);
+        TextView tv1 = (TextView) indicator_1.findViewById(R.id.tab_indicator_tv);
+        tv1.setText("二环公交");
+        ImageView iv1 = (ImageView) indicator_1.findViewById(R.id.tab_indicator_iv);
+        iv1.setImageDrawable(realDrawable1);
+        layout1spec.setIndicator(indicator_1);
         layout1spec.setContent(layout1intent);
         mTabHost.addTab(layout1spec);
         
@@ -81,7 +87,12 @@ public class MainActivity extends TabActivity
         float width4 = (float) (tab4_drawable.getIntrinsicWidth()*0.9);
         float height4= (float) (tab4_drawable.getIntrinsicHeight()*0.9);
         Drawable realDrawable4 = CompressImage.zoomDrawable(tab4_drawable,width4,height4);
-        layout4spec.setIndicator("二环公交",realDrawable4);
+        View indicator_4 = this.getLayoutInflater().inflate(R.layout.tab_indicator, null);
+        TextView tv4 = (TextView) indicator_4.findViewById(R.id.tab_indicator_tv);
+        tv4.setText("二环公交");
+        ImageView iv4 = (ImageView) indicator_4.findViewById(R.id.tab_indicator_iv);
+        iv4.setImageDrawable(realDrawable4);
+        layout4spec.setIndicator(indicator_4);
         layout4spec.setContent(layout4intent);
         mTabHost.addTab(layout4spec);
         
@@ -93,7 +104,12 @@ public class MainActivity extends TabActivity
         float width5 = (float) (tab5_drawable.getIntrinsicWidth()*0.9);
         float height5= (float) (tab5_drawable.getIntrinsicHeight()*0.9);
         Drawable realDrawable5 = CompressImage.zoomDrawable(tab5_drawable,width5,height5);
-        layout5spec.setIndicator("交通应用",realDrawable5);
+        View indicator_5 = this.getLayoutInflater().inflate(R.layout.tab_indicator, null);
+        TextView tv5 = (TextView) indicator_5.findViewById(R.id.tab_indicator_tv);
+        tv5.setText("交通应用");
+        ImageView iv5 = (ImageView) indicator_5.findViewById(R.id.tab_indicator_iv);
+        iv5.setImageDrawable(realDrawable5);
+        layout5spec.setIndicator(indicator_5);
         layout5spec.setContent(layout5intent);
         mTabHost.addTab(layout5spec);
 
@@ -106,7 +122,12 @@ public class MainActivity extends TabActivity
         float width2 = (float) (tab2_drawable.getIntrinsicWidth()*0.9);
         float height2= (float) (tab2_drawable.getIntrinsicHeight()*0.9);
         Drawable realDrawable2 = CompressImage.zoomDrawable(tab2_drawable,width2,height2);
-        layout2spec.setIndicator("交通信息",realDrawable2);
+        View indicator_2 = this.getLayoutInflater().inflate(R.layout.tab_indicator, null);
+        TextView tv2 = (TextView) indicator_2.findViewById(R.id.tab_indicator_tv);
+        tv2.setText("交通信息");
+        ImageView iv2 = (ImageView) indicator_2.findViewById(R.id.tab_indicator_iv);
+        iv2.setImageDrawable(realDrawable2);
+        layout2spec.setIndicator(indicator_2);
         layout2spec.setContent(layout2intent);
         mTabHost.addTab(layout2spec);
         
@@ -120,7 +141,12 @@ public class MainActivity extends TabActivity
         float width3 = (float) (tab3_drawable.getIntrinsicWidth()*0.9);
         float height3= (float) (tab3_drawable.getIntrinsicHeight()*0.9);
         Drawable realDrawable3 = CompressImage.zoomDrawable(tab3_drawable,width3,height3);
-        layout3spec.setIndicator("软件设置",realDrawable3);
+        View indicator_3 = this.getLayoutInflater().inflate(R.layout.tab_indicator, null);
+        TextView tv3 = (TextView) indicator_3.findViewById(R.id.tab_indicator_tv);
+        tv3.setText("软件设置");
+        ImageView iv3 = (ImageView) indicator_3.findViewById(R.id.tab_indicator_iv);
+        iv3.setImageDrawable(realDrawable3);
+        layout3spec.setIndicator(indicator_3);
         layout3spec.setContent(layout3intent);
         mTabHost.addTab(layout3spec);
         
@@ -166,11 +192,11 @@ public class MainActivity extends TabActivity
            // mTabWidget.setBackgroundResource(0);
             /* 设置tab的高度 */
             mTabWidget.getChildAt(i).getLayoutParams().height = 80;
-            TextView tv = (TextView) mTabWidget.getChildAt(i).findViewById(
-                    android.R.id.title);
-            /* 设置tab内字体的颜色 */
-            tv.setTextColor(Color.WHITE);
-            tv.setTextSize(14);
+//            TextView tv = (TextView) mTabWidget.getChildAt(i).findViewById(
+//                    android.R.id.title);
+//            /* 设置tab内字体的颜色 */
+//            tv.setTextColor(Color.WHITE);
+//            tv.setTextSize(14);
         }
 
         /* 当点击Tab选项卡的时候，更改当前Tab标签的背景 */

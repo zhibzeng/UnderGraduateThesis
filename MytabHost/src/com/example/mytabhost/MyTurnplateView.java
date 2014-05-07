@@ -83,11 +83,11 @@ public class MyTurnplateView extends View implements  OnTouchListener{
 	//不同类型路口配置不同图片
 	private final static int PONITS_PICS[] = {
 		R.drawable.exits11,//labelid 1
-		R.drawable.exits21,//labelid 2
-		R.drawable.exits31,//labelid 3
+		R.drawable.exits22,//labelid 2
+		R.drawable.exits33,//labelid 3
 		R.drawable.enter11,//labelid 4
-		R.drawable.enter12,//labelid 5
-		R.drawable.enter13,//labelid 6
+		R.drawable.enter22,//labelid 5
+		R.drawable.enter33,//labelid 6
 		R.drawable.exits41,//labelid 7
 		};
 	

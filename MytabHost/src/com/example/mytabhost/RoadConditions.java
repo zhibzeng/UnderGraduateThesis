@@ -22,7 +22,7 @@ import android.widget.SimpleAdapter;
 public class RoadConditions extends Activity{
 	
 	private ListView roadConditionList;
-	private ArrayList<HashMap<String, Object>> listItem;;
+	private ArrayList<HashMap<String, Object>> listItem;
 	private SimpleAdapter listItemAdapter;
 	private ProgressDialog myDialog;// 声明ProgressDialog类型变量
 	private List<RoadConditionEntity> lists = null;
