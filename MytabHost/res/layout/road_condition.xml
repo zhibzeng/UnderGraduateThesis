@@ -12,7 +12,7 @@
                 android:id="@+id/traffic_condition_title" 
                 android:layout_width="wrap_content"
                 android:layout_height="50dip"
-                android:text="实施路况播报" 
+                android:text="实时路况播报" 
                 android:textColor="#ffffff"
                 android:textSize="18sp"
                 android:gravity="center"

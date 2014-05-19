@@ -63,7 +63,7 @@
 	    android:layout_width="60dip"
 	  	android:layout_height="48dip"
 	    android:scrollbars="horizontal"
-	    android:text="7.22"
+	    android:text="7.11"
 	    android:textColor="#C00"
 	    android:textSize="20sp"
 	    android:background="@color/white"
@@ -115,7 +115,7 @@
 	    android:layout_width="60dip"
 	  	android:layout_height="48dip"
 	    android:scrollbars="horizontal"
-	    android:text="7.70"
+	    android:text="7.59"
 	    android:textColor="#C00"
 	    android:textSize="20sp"
 	    android:background="@color/white"
@@ -168,7 +168,7 @@
 	    android:layout_width="60dip"
 	  	android:layout_height="48dip"
 	    android:scrollbars="horizontal"
-	    android:text="8.30"
+	    android:text="8.19"
 	    android:textColor="#C00"
 	    android:textSize="20sp"
 	    android:background="@color/white"
@@ -221,7 +221,7 @@
 	    android:layout_width="60dip"
 	  	android:layout_height="48dip"
 	    android:scrollbars="horizontal"
-	    android:text="7.41"
+	    android:text="7.42"
 	    android:textColor="#C00"
 	    android:textSize="20sp"
 	    android:background="@color/white"
@@ -238,6 +238,14 @@
 	    android:gravity="center_vertical"
 	   /> 
  </LinearLayout>
+ <TextView 
+     android:layout_width="fill_parent"
+     android:layout_height="wrap_content"
+     android:textColor="@color/grayslate"
+     android:text="数据来源:易车网" 
+     android:paddingLeft="225dip"
+     android:textSize="12sp"
+     />
  </LinearLayout> 
  </LinearLayout>
  

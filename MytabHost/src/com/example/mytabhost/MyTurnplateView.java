@@ -75,7 +75,7 @@ public class MyTurnplateView extends View implements  OnTouchListener{
 	//内环速度
 	private int speed0[]={15,64,78,23,44,45,76,87,37,12,98,34,13,53,12,46,68,24,89,34,56,79,21,35,69,20,36,94,30,98};
 	//外环速度
-	private int speed1[]={53,12,46,68,24,89,34,56,79,15,64,78,23,44,45,76,87,37,12,98,79,21,35,69,20,36,94,11};
+	private int speed1[]={53,12,46,68,24,89,34,56,79,15,64,78,23,44,45,76,87,37,12,98,79,21,35,69,20,36,94,11,12};
 	private Context mContext = null;
 	//路口信息列表
 	public static List<CrossingEntity> CrossingListInner = null;
@@ -89,6 +89,8 @@ public class MyTurnplateView extends View implements  OnTouchListener{
 		R.drawable.enter22,//labelid 5
 		R.drawable.enter33,//labelid 6
 		R.drawable.exits41,//labelid 7
+		R.drawable.exits51,//labelid 8
+		R.drawable.enter42,//labelid 9
 		};
 	
 	private int pointsize = 0;//路口数目

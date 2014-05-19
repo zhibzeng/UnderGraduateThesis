@@ -70,6 +70,8 @@ public class RoadOne extends Activity implements OnTurnplateListener,MyTouchList
 	private int height, width;
 	private Button total1btn = null;
 	private Button total2btn = null;
+	private Button icon_represent1 = null;
+	private Button icon_represent2 = null;	
 	private Button btnsearch = null;
 	private AutoCompleteTextView editTextlukou = null;
 	private static int FinalFlag = 1;// 标志位，0时为内圈，1时为外圈
@@ -134,9 +136,9 @@ public class RoadOne extends Activity implements OnTurnplateListener,MyTouchList
 		frame.addView(itemView);
 		btnreturn = (Button) findViewById(R.id.BtnReturn);
 		if(flag==0){
-			btnreturn.setText("外环");
-		}else{
 			btnreturn.setText("内环");
+		}else{
+			btnreturn.setText("外环");
 		}
 		
 		btnreturn.setOnClickListener(new BtnClickListener());
@@ -144,15 +146,26 @@ public class RoadOne extends Activity implements OnTurnplateListener,MyTouchList
 		total1btn = (Button) findViewById(R.id.TotalRoad1);
 		//外环全景
 		total2btn = (Button) findViewById(R.id.TotalRoad2);
+		//内环图例
+		icon_represent1 = (Button) findViewById(R.id.icon_represent1);
+		//外环图例
+		icon_represent2 = (Button) findViewById(R.id.icon_represent2);
+		
 		total1btn.setOnClickListener(new BtnClickListener());
+		icon_represent1.setOnClickListener(new BtnClickListener());
+		icon_represent2.setOnClickListener(new BtnClickListener());
 		total2btn.setOnClickListener(new BtnClickListener());
 		if(flag==0){
 			total1btn.setVisibility(View.VISIBLE);
+			icon_represent1.setVisibility(View.VISIBLE);
 			total2btn.setVisibility(View.GONE);
+			icon_represent2.setVisibility(View.GONE);
 		
 		}else{
 			total1btn.setVisibility(View.GONE);
+			icon_represent1.setVisibility(View.GONE);
 			total2btn.setVisibility(View.VISIBLE);
+			icon_represent2.setVisibility(View.VISIBLE);
 		}
 		
 		int ACTFlag = 1;
@@ -195,8 +208,7 @@ public class RoadOne extends Activity implements OnTurnplateListener,MyTouchList
 			}
 			if (v == total1btn) {
 				frame.removeAllViews();
-				final TotalRoad yourview = new TotalRoad(RoadOne.this, width,
-						height);
+				final TotalRoad yourview = new TotalRoad(RoadOne.this, width,height);
 				yourview.setMyTouchListener(RoadOne.this);
 				frame = new FrameLayout(RoadOne.this);
 				setContentView(frame);
@@ -206,19 +218,76 @@ public class RoadOne extends Activity implements OnTurnplateListener,MyTouchList
 				// total1btn.setVisibility(View.VISIBLE);
 				// total2btn.setVisibility(View.GONE);
 				frame.removeAllViews();
-				final TotalRoad yourview = new TotalRoad(RoadOne.this, width,height);
-				yourview.setMyTouchListener(RoadOne.this);
+				final TotalRoad yourview = new TotalRoad(RoadOne.this,width,height);
 				frame = new FrameLayout(RoadOne.this);
+				yourview.setMyTouchListener(RoadOne.this);
 				setContentView(frame);
 				frame.addView(yourview);
+			}
+			if (v == icon_represent1) {
+				inflater = (LayoutInflater) RoadOne.this.getSystemService(LAYOUT_INFLATER_SERVICE);
+				// 这里的main布局是在inflate中加入的哦，以前都是直接this.setContentView()的吧？呵呵
+				// 该方法返回的是一个View的对象，是布局中的根
+				layout = inflater.inflate(R.layout.illustrate_pics, null);
+				menuWindow = new PopupWindow(layout, LayoutParams.WRAP_CONTENT,
+						LayoutParams.WRAP_CONTENT); // 后两个参数是width和height
+				layout.setBackgroundResource(R.drawable.popupwindow);
+				ColorDrawable cd = new ColorDrawable(-0000);
+				menuWindow.setBackgroundDrawable(cd);
+				menuWindow.setFocusable(true);
+				menuWindow.setOutsideTouchable(true);
+				menuWindow.showAsDropDown(icon_represent1);
+				menuWindow.showAtLocation(RoadOne.this.findViewById(R.id.window),
+						Gravity.TOP | Gravity.LEFT, 0, (int) mPointY / 2); // 设置layout在PopupWindow中显示的位置
+				menuWindow.update();
+				menuWindow.setTouchInterceptor(new View.OnTouchListener() {
+					@Override
+					public boolean onTouch(View v, MotionEvent event) {
+						/**** 如果点击了popupwindow的外部，popupwindow也会消失 ****/
+						// TODO Auto-generated method stub
+						if (event.getAction() == MotionEvent.ACTION_OUTSIDE) {
+							menuWindow.dismiss();
+						}
+						return false;
+					}
+				});
+				
+			}
+			if (v == icon_represent2) {
+				inflater = (LayoutInflater) RoadOne.this.getSystemService(LAYOUT_INFLATER_SERVICE);
+				// 这里的main布局是在inflate中加入的哦，以前都是直接this.setContentView()的吧？呵呵
+				// 该方法返回的是一个View的对象，是布局中的根
+				layout = inflater.inflate(R.layout.illustrate_pics, null);
+				menuWindow = new PopupWindow(layout, LayoutParams.WRAP_CONTENT,
+						LayoutParams.WRAP_CONTENT); // 后两个参数是width和height
+				layout.setBackgroundResource(R.drawable.popupwindow);
+				ColorDrawable cd = new ColorDrawable(-0000);
+				menuWindow.setBackgroundDrawable(cd);
+				menuWindow.setFocusable(true);
+				menuWindow.setOutsideTouchable(true);
+				menuWindow.showAsDropDown(icon_represent2);
+				menuWindow.showAtLocation(RoadOne.this.findViewById(R.id.window),
+						Gravity.TOP | Gravity.LEFT, 0, (int) mPointY / 2); // 设置layout在PopupWindow中显示的位置
+				menuWindow.update();
+				menuWindow.setTouchInterceptor(new View.OnTouchListener() {
+					@Override
+					public boolean onTouch(View v, MotionEvent event) {
+						/**** 如果点击了popupwindow的外部，popupwindow也会消失 ****/
+						// TODO Auto-generated method stub
+						if (event.getAction() == MotionEvent.ACTION_OUTSIDE) {
+							menuWindow.dismiss();
+						}
+						return false;
+					}
+				});
 			}
 			if (v == btnsearch) {// 搜索按钮
 				String messlukou = editTextlukou.getText().toString();
 				if (messlukou.compareTo("") == 0) {
 					Toast.makeText(RoadOne.this, "请输入需要搜索的信息", 1000).show();
 				} else {
-					if (btnreturn.getText().toString() == "内环") {
-						// 如果当前按钮的字符是"内环"
+					if (btnreturn.getText().toString() == "外环") {
+						// 如果当前按钮的字符是"外环"
 						int tangleTorun = -1;
 						for(int i=0;i<CrossingListOut.size();i++){
 							CrossingEntity entity = CrossingListOut.get(i);
@@ -261,7 +330,7 @@ public class RoadOne extends Activity implements OnTurnplateListener,MyTouchList
 			}
 			if (v == btnreturn) {
 				// 切换内环/外环 按钮
-				if (btnreturn.getText().toString() == "内环") {
+				if (btnreturn.getText().toString() == "外环") {
 					renderView(0,mPointX,mPointY,mRadius,0);
 				} else {
 					//准备切换成外环
@@ -582,33 +651,33 @@ public class RoadOne extends Activity implements OnTurnplateListener,MyTouchList
 				break;
 			case 9:
 				Toast.makeText(RoadOne.this,
-						"建设北路出口->府青路出口，当前平均时速为" + Sspeed + "km/h", 1000).show();
+						"建设北路出口->建设北路入口，当前平均时速为" + Sspeed + "km/h", 1000).show();
 				break;
 			case 8:
 				Toast.makeText(RoadOne.this,
-						"府青路出口->驷马桥路入口，当前平均时速为" + Sspeed + "km/h", 1000).show();
+						"建设北路入口->府青路出口，当前平均时速为" + Sspeed + "km/h", 1000).show();
 				break;
 			case 7:
 				Toast.makeText(RoadOne.this,
-						"驷马桥路入口->驷马桥街出口，当前平均时速为" + Sspeed + "km/h", 1000).show();
+						"府青路出口->驷马桥路入口，当前平均时速为" + Sspeed + "km/h", 1000).show();
 				break;
 			case 6:
 				Toast.makeText(RoadOne.this,
-						"驷马桥街出口->北星干道出口，当前平均时速为" + Sspeed + "km/h", 1000).show();
+						"驷马桥路入口->驷马桥街出口，当前平均时速为" + Sspeed + "km/h", 1000).show();
 				break;
 			case 5:
 				Toast.makeText(RoadOne.this,
-						"北星干道出口->北星干道入口，当前平均时速为" + Sspeed + "km/h", 1000)
-						.show();
+						"驷马桥街出口->北新干道出口，当前平均时速为" + Sspeed + "km/h", 1000).show();
 				break;
 			case 4:
 				Toast.makeText(RoadOne.this,
-						"北星干道入口->火车北站入口，当前平均时速为" + Sspeed + "km/h", 1000)
+						"北新干道出口->北新干道入口，当前平均时速为" + Sspeed + "km/h", 1000)
 						.show();
 				break;
 			case 3:
 				Toast.makeText(RoadOne.this,
-						"火车北站入口->九里堤出口，当前平均时速为" + Sspeed + "km/h", 1000).show();
+						"北新干道入口->九里堤出口，当前平均时速为" + Sspeed + "km/h", 1000)
+						.show();
 				break;
 			case 2:
 				Toast.makeText(RoadOne.this,
@@ -666,12 +735,12 @@ public class RoadOne extends Activity implements OnTurnplateListener,MyTouchList
 				break;
 			case 7:
 				Toast.makeText(RoadOne.this,
-						"北站东二路出口->北星大道出口,当前平均时速为" + Sspeed + "km/h", 1000)
+						"北站东二路出口->北新干道出口,当前平均时速为" + Sspeed + "km/h", 1000)
 						.show();
 				break;
 			case 8:
 				Toast.makeText(RoadOne.this,
-						"北星大道出口->北新干道入口,当前平均时速为" + Sspeed + "km/h", 1000)
+						"北新干道出口->北新干道入口,当前平均时速为" + Sspeed + "km/h", 1000)
 						.show();
 				break;
 			case 9:

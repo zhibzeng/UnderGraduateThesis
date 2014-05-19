@@ -14,22 +14,27 @@
         />
     <LinearLayout
         android:layout_marginTop="20dip"
+        android:layout_marginBottom="20dip"
         android:layout_width="fill_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
         >
         <Button
             android:id="@+id/btnclear"
             android:text="点击清除"
-            android:layout_width="wrap_content"
+	     	android:background="@drawable/corner_btnbg"
+	     	android:textColor="@color/white"
+            android:layout_width="80dip"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dip"
             />
 
         <Button
             android:id="@+id/btncancer"
-            android:layout_width="wrap_content"
+            android:layout_width="80dip"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="120dip"
+            android:layout_marginLeft="80dip"
+            android:background="@drawable/corner_btnbg"
+           	android:textColor="@color/white"
             android:text="取消" />
         </LinearLayout>
 </LinearLayout>

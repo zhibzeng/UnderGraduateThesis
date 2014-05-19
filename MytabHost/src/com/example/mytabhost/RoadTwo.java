@@ -94,7 +94,7 @@ public class RoadTwo extends Activity implements OnTurnplateListener2,MyTouchLis
     private int height,width;
     private Button total1btn=null;
     private Button total2btn=null;
-    private static int FinalFlag=0;//标志位，0时为内圈，1时为外圈
+    private static int FinalFlag=1;//标志位，0时为内圈，1时为外圈
     
     private Button btnsearch=null;
     
@@ -206,13 +206,13 @@ public class RoadTwo extends Activity implements OnTurnplateListener2,MyTouchLis
 					//Toast.makeText(RoadOne.this, "nima", 1000).show();
 				if(btnreturn.getText().toString()=="K1") {//如果当前按钮的字符是"K2"
 					int tangleTorun;
-					if (messlukou.equals("双轿子立交桥北站")) {
+					if (messlukou.equals("双桥子北站")) {
 						tangleTorun=0;
-					}else if(messlukou.equals("双娇子立交桥南站")){
+					}else if(messlukou.equals("双桥子南站")){
 						tangleTorun=1;
 					}else if(messlukou.equals("牛市口站")){
 						tangleTorun=2;
-					}else if(messlukou.equals("桂莲东路口站")){
+					}else if(messlukou.equals("莲桂东路口站")){
 						tangleTorun=3;
 					}else if(messlukou.equals("龙舟路口站")){
 						tangleTorun=4;
@@ -234,7 +234,7 @@ public class RoadTwo extends Activity implements OnTurnplateListener2,MyTouchLis
 						tangleTorun=12;
 					}else if(messlukou.equals("清水河站")){
 						tangleTorun=13;
-					}else if(messlukou.equals("光华村西口站")){
+					}else if(messlukou.equals("光华村街口站")){
 						tangleTorun=14;
 					}else if(messlukou.equals("府南新区站")){
 						tangleTorun=15;
@@ -246,22 +246,24 @@ public class RoadTwo extends Activity implements OnTurnplateListener2,MyTouchLis
 						tangleTorun=18;
 					}else if(messlukou.equals("商贸大道口站")){
 						tangleTorun=19;
-					}else if(messlukou.equals("火车北站东站")){
+					}else if(messlukou.equals("火车北站西站")){
 						tangleTorun=20;
-					}else if(messlukou.equals("三友路口站")){
+					}else if(messlukou.equals("高笋塘站")){
 						tangleTorun=21;
-					}else if(messlukou.equals("桃蹊路口站")){
+					}else if(messlukou.equals("三友路口站")){
 						tangleTorun=22;
-					}else if(messlukou.equals("建设路口站")){
+					}else if(messlukou.equals("桃蹊路口站")){
 						tangleTorun=23;
-					}else if(messlukou.equals("建设南口路站")){
+					}else if(messlukou.equals("建设路口站")){
 						tangleTorun=24;
-					}else if(messlukou.equals("杉板桥站")){
+					}else if(messlukou.equals("建设南口路站")){
 						tangleTorun=25;
-					}else if(messlukou.equals("双林北支路路口站")){
+					}else if(messlukou.equals("杉板桥站")){
 						tangleTorun=26;
-					}else if(messlukou.equals("万年场站")){
+					}else if(messlukou.equals("双林北支路口站")){
 						tangleTorun=27;
+					}else if(messlukou.equals("万年场站")){
+						tangleTorun=28;
 					}else {
 						Toast.makeText(RoadTwo.this, "请输入需要搜索的信息", 1000).show();
 						tangleTorun=0;
@@ -304,7 +306,7 @@ public class RoadTwo extends Activity implements OnTurnplateListener2,MyTouchLis
 							
 					FinalFlag=0;			
 				}
-				else {//当前按钮字符是“k2”时
+				else {//当前按钮字符是“k1”时
 					int tangleTorun;
 					if(messlukou.equals("建设南路口站")){
 						tangleTorun=0;
@@ -322,7 +324,7 @@ public class RoadTwo extends Activity implements OnTurnplateListener2,MyTouchLis
 						tangleTorun=6;
 					}else if(messlukou.equals("西南交大站")){
 						tangleTorun=7;
-					}else if(messlukou.equals("营门口北")){
+					}else if(messlukou.equals("营门口北站")){
 						tangleTorun=8;
 					}else if(messlukou.equals("蜀汉路口北站")){
 						tangleTorun=9;
@@ -362,6 +364,8 @@ public class RoadTwo extends Activity implements OnTurnplateListener2,MyTouchLis
 						tangleTorun=26;
 					}else if(messlukou.equals("双林北支路口站")){
 						tangleTorun=27;
+					}else if(messlukou.equals("杉板桥站")){
+						tangleTorun=28;
 					}else {
 						Toast.makeText(RoadTwo.this, "请输入需要搜索的信息", 1000).show();
 						tangleTorun=0;
@@ -551,34 +555,35 @@ public class RoadTwo extends Activity implements OnTurnplateListener2,MyTouchLis
 			ad2View=(ImageView)findViewById(R.id.picture_ad2);
 			
 			if (FinalFlag==0) {
-			switch (flag) {
-			case 27:imageView.setImageResource(R.drawable.b1_1);windowTextView.setText("双轿子立交桥北站");break;
-			case 26:imageView.setImageResource(R.drawable.b1_2);windowTextView.setText("双娇子立交桥南站");break;
-			case 25:imageView.setImageResource(R.drawable.b1_3);windowTextView.setText("牛市口站");break;
-			case 24:imageView.setImageResource(R.drawable.b1_4);windowTextView.setText("桂莲东路口站");break;
-			case 23:imageView.setImageResource(R.drawable.b1_5);windowTextView.setText("龙舟路口站");break;
-			case 22:imageView.setImageResource(R.drawable.b1_6);windowTextView.setText("成仁公交站");break;
-			case 21:imageView.setImageResource(R.drawable.b1_7);windowTextView.setText("东湖公园站");break;
-			case 20:imageView.setImageResource(R.drawable.b1_8);windowTextView.setText("科华路口站");break;
-			case 19:imageView.setImageResource(R.drawable.b1_9);windowTextView.setText("人南立交东站");break;
-			case 18:imageView.setImageResource(R.drawable.b1_10);windowTextView.setText("紫荆北路口站");break;
-			case 17:imageView.setImageResource(R.drawable.b1_11);windowTextView.setText("红牌楼东站");break;
-			case 16:imageView.setImageResource(R.drawable.b1_12);windowTextView.setText("红牌楼西站");break;
-			case 15:imageView.setImageResource(R.drawable.b1_13);windowTextView.setText("少陵路口站");break;
-			case 14:imageView.setImageResource(R.drawable.b1_14);windowTextView.setText("清水河站");break;
-			case 13:imageView.setImageResource(R.drawable.b1_15);windowTextView.setText("光华村西口站");break;
-			case 12:imageView.setImageResource(R.drawable.b1_16);windowTextView.setText("府南新区站");break;
-			case 11:imageView.setImageResource(R.drawable.b1_17);windowTextView.setText("蜀汉路口北站");break;
-			case 10:imageView.setImageResource(R.drawable.b1_18);windowTextView.setText("营门口北站");break;
-			case 9:imageView.setImageResource(R.drawable.b1_19);windowTextView.setText("西南交大站");break;
-			case 8:imageView.setImageResource(R.drawable.b1_20);windowTextView.setText("商贸大道口站");break;
-			case 7:imageView.setImageResource(R.drawable.b1_21);windowTextView.setText("火车北站东站");break;
+			switch (flag) {//K2
+			case 28:imageView.setImageResource(R.drawable.b1_1);windowTextView.setText("双桥子北站");break;
+			case 27:imageView.setImageResource(R.drawable.b1_2);windowTextView.setText("双桥子南站");break;
+			case 26:imageView.setImageResource(R.drawable.b1_3);windowTextView.setText("牛市口站");break;
+			case 25:imageView.setImageResource(R.drawable.b1_4);windowTextView.setText("莲桂东路口站");break;
+			case 24:imageView.setImageResource(R.drawable.b1_5);windowTextView.setText("龙舟路口站");break;
+			case 23:imageView.setImageResource(R.drawable.b1_6);windowTextView.setText("成仁公交站");break;
+			case 22:imageView.setImageResource(R.drawable.b1_7);windowTextView.setText("东湖公园站");break;
+			case 21:imageView.setImageResource(R.drawable.b1_8);windowTextView.setText("科华路口站");break;
+			case 20:imageView.setImageResource(R.drawable.b1_9);windowTextView.setText("人南立交东站");break;
+			case 19:imageView.setImageResource(R.drawable.b1_10);windowTextView.setText("紫荆北路口站");break;
+			case 18:imageView.setImageResource(R.drawable.b1_11);windowTextView.setText("红牌楼东站");break;
+			case 17:imageView.setImageResource(R.drawable.b1_12);windowTextView.setText("红牌楼西站");break;
+			case 16:imageView.setImageResource(R.drawable.b1_13);windowTextView.setText("少陵路口站");break;
+			case 15:imageView.setImageResource(R.drawable.b1_14);windowTextView.setText("清水河站");break;
+			case 14:imageView.setImageResource(R.drawable.b1_15);windowTextView.setText("光华村街口站");break;
+			case 13:imageView.setImageResource(R.drawable.b1_16);windowTextView.setText("府南新区站");break;
+			case 12:imageView.setImageResource(R.drawable.b1_17);windowTextView.setText("蜀汉路口北站");break;
+			case 11:imageView.setImageResource(R.drawable.b1_18);windowTextView.setText("营门口北站");break;
+			case 10:imageView.setImageResource(R.drawable.b1_19);windowTextView.setText("西南交大站");break;
+			case 9:imageView.setImageResource(R.drawable.b1_20);windowTextView.setText("商贸大道口站");break;
+			case 8:imageView.setImageResource(R.drawable.b1_21);windowTextView.setText("火车北站西站");break;
+			case 7:imageView.setImageResource(R.drawable.b1_21);windowTextView.setText("高笋塘站");break;
 			case 6:imageView.setImageResource(R.drawable.b1_22);windowTextView.setText("三友路口站");break;
 			case 5:imageView.setImageResource(R.drawable.b1_23);windowTextView.setText("桃蹊路口站");break;
 			case 4:imageView.setImageResource(R.drawable.b1_24);windowTextView.setText("建设路口站");break;
 			case 3:imageView.setImageResource(R.drawable.b1_25);windowTextView.setText("建设南口路站");break;
 			case 2:imageView.setImageResource(R.drawable.b1_26);windowTextView.setText("杉板桥站");break;
-			case 1:imageView.setImageResource(R.drawable.b1_27);windowTextView.setText("双林北支路路口站");break;
+			case 1:imageView.setImageResource(R.drawable.b1_27);windowTextView.setText("双林北支路口站");break;
 			case 0:imageView.setImageResource(R.drawable.b1_28);windowTextView.setText("万年场站");break;
 			default:
 				break;
@@ -594,7 +599,7 @@ public class RoadTwo extends Activity implements OnTurnplateListener2,MyTouchLis
 				case 5:imageView.setImageResource(R.drawable.b2_9);windowTextView.setText("火车北站西站");break;
 				case 6:imageView.setImageResource(R.drawable.b2_10);windowTextView.setText("商贸大道口站");break;
 				case 7:imageView.setImageResource(R.drawable.b2_11);windowTextView.setText("西南交大站");break;
-				case 8:imageView.setImageResource(R.drawable.b2_12);windowTextView.setText("营门口北");break;
+				case 8:imageView.setImageResource(R.drawable.b2_12);windowTextView.setText("营门口北站");break;
 				case 9:imageView.setImageResource(R.drawable.b2_13);windowTextView.setText("蜀汉路口北站");break;
 				case 10:imageView.setImageResource(R.drawable.b2_14);windowTextView.setText("府南新区站");break;
 				case 11:imageView.setImageResource(R.drawable.b2_15);windowTextView.setText("光华村街口站");break;
@@ -614,6 +619,7 @@ public class RoadTwo extends Activity implements OnTurnplateListener2,MyTouchLis
 				case 25:imageView.setImageResource(R.drawable.b2_1);windowTextView.setText("双桥子北站");break;
 				case 26:imageView.setImageResource(R.drawable.b2_2);windowTextView.setText("万年场站");break;
 				case 27:imageView.setImageResource(R.drawable.b2_3);windowTextView.setText("双林北支路口站");break;	
+				case 28:imageView.setImageResource(R.drawable.b2_3);windowTextView.setText("杉板桥站");break;	
 				default:
 					break;
 				}

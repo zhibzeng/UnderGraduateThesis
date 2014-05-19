@@ -74,4 +74,33 @@
 	     android:background="@drawable/corner_btnbg"
 	     />
 	</RelativeLayout>
+	
+	 <RelativeLayout
+	     android:layout_width="fill_parent"
+	     android:layout_height="wrap_content"
+	     android:orientation="horizontal"
+	     android:layout_marginLeft="5dip"
+	     android:layout_marginRight="5dip"
+	     >
+	 <Button
+	    android:id="@+id/icon_represent1"
+	    android:layout_width="60dip"
+	    android:layout_height="wrap_content"
+	    android:text="图例" 
+	    android:gravity="center"
+	    android:textColor="@color/white"
+	    android:background="@drawable/corner_btnbg"
+	   />  
+	<Button
+	     android:id="@+id/icon_represent2"
+	     android:layout_width="60dip"
+	     android:layout_height="wrap_content"
+	     android:layout_alignParentRight="true"
+	     android:layout_alignParentTop="true"
+	     android:text="图例" 
+	     android:gravity="center"
+	     android:textColor="@color/white"
+	     android:background="@drawable/corner_btnbg"
+	     />
+	</RelativeLayout>
 </LinearLayout>

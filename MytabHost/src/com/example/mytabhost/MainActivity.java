@@ -73,7 +73,7 @@ public class MainActivity extends TabActivity
         Drawable realDrawable1 = CompressImage.zoomDrawable(tab1_drawable,width1,height1);
         View indicator_1 = this.getLayoutInflater().inflate(R.layout.tab_indicator, null);
         TextView tv1 = (TextView) indicator_1.findViewById(R.id.tab_indicator_tv);
-        tv1.setText("二环公交");
+        tv1.setText("二环高架");
         ImageView iv1 = (ImageView) indicator_1.findViewById(R.id.tab_indicator_iv);
         iv1.setImageDrawable(realDrawable1);
         layout1spec.setIndicator(indicator_1);

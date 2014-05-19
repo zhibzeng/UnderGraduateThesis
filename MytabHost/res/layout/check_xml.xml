@@ -12,26 +12,30 @@
         android:layout_marginLeft="20dip"
         android:textSize="20dip"
                 />
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="fill_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="20dip"
+        android:layout_marginBottom="20dip"
+        android:gravity="center_horizontal"
         >
         <Button
             android:id="@+id/btnupdate"
             android:text="点击更新"
+	     	android:background="@drawable/corner_btnbg"
+	     	android:textColor="@color/white"
             android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:layout_marginLeft="20dip"
+           	android:layout_width="80dip"
             />
          <Button
+            android:layout_marginLeft="50dip"
             android:id="@+id/btncancer2"
-            android:layout_toRightOf="@id/btnupdate"
             android:text="取消"
+            android:textColor="@color/white"
+            android:background="@drawable/corner_btnbg"
             android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:layout_marginLeft="120dip"
+            android:layout_width="80dip"
             />
 
-        </RelativeLayout>
+        </LinearLayout>
 </LinearLayout>

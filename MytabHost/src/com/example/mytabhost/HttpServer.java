@@ -114,7 +114,7 @@ public class HttpServer {
 	 * @return
 	 */
 	public static String getWeather(){
-		String url = "http://api.map.baidu.com/telematics/v3/weather?location=成都&output=json&ak=5slgyqGDENN7Sy7pw29IUvrZ";
+		String url = "http://api.map.baidu.com/telematics/v3/weather?location=%E6%88%90%E9%83%BD&output=json&ak=5PdAruq3DRuqhZdoV8OydE4g";
 		String result=null;
 		HttpGet request = new HttpGet(url);
 		try 

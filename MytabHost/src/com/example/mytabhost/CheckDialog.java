@@ -4,7 +4,12 @@ package com.example.mytabhost;
 import com.example.mytabhost.R;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
 import android.view.View.OnClickListener;
@@ -16,6 +21,7 @@ public class CheckDialog extends Activity{
 	private Button cancer=null;
 	private TextView textView=null;
 	private int num;
+	private ProgressDialog myDialog;// 声明ProgressDialog类型变量
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -51,8 +57,22 @@ public class CheckDialog extends Activity{
 			//Intent intent1=new Intent();
 			if(v==check)
 			{
-				textView.setText("当前版本为最新版本");
-				check.setVisibility(View.GONE);
+				myDialog = ProgressDialog.show(CheckDialog.this, "请稍等一会哦...", "正在验证版本号...",
+						true);
+				myDialog.getWindow().setGravity(Gravity.CENTER); //居中显示加载数据对话框
+				myDialog.setCancelable(true);
+				new Thread() {
+					public void run() {
+						try {
+							Thread.sleep(3000);//模拟加载，停留1.5秒
+							Message m = new Message();
+							listHandler.sendMessage(m);
+						} catch (InterruptedException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+				}.start();
 			}
 			else {
 				finish();
@@ -60,6 +80,15 @@ public class CheckDialog extends Activity{
 		}
 		
 	}
+	
+	final Handler listHandler = new Handler() {
+		public void handleMessage(Message msg) {
+			textView.setText("当前版本为最新版本");
+			check.setVisibility(View.GONE);
+			if(myDialog.isShowing()){
+				myDialog.dismiss();
+			}
+		}};
 
 
 }

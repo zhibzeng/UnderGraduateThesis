@@ -457,33 +457,34 @@ public class MyTurnplateView2 extends View implements  OnTouchListener{
 			p1.setTextAlign(Align.RIGHT);//靠右对齐 
 		switch(index)
 		{
-		case 27:canvas.drawText("双轿子立交桥北站", x, y, p1);break;
-		case 26:canvas.drawText("双娇子立交桥南站", x, y, p1);break;
-		case 25:canvas.drawText("牛市口站", x, y, p1);break;
-		case 24:canvas.drawText("桂莲东路口站", x, y, p1);break;
-		case 23:canvas.drawText("龙舟路口站", x, y, p1);break;
-		case 22:canvas.drawText("成仁公交站", x, y, p1);break;
-		case 21:canvas.drawText("东湖公园站", x, y, p1);break;
-		case 20:canvas.drawText("科华路口站", x, y, p1);break;
-		case 19:canvas.drawText("人南立交东站", x, y, p1);break;
-		case 18:canvas.drawText("紫荆北路口站", x, y, p1);break;		
-		case 17:canvas.drawText("红牌楼东站",x, y, p1);break;
-		case 16:canvas.drawText("红牌楼西站", x, y, p1);break;
-		case 15:canvas.drawText("少陵路口站", x, y, p1);break;
-		case 14:canvas.drawText("清水河站", x, y, p1);break;
-		case 13:canvas.drawText("光华村西口站", x, y, p1);break;
-		case 12:canvas.drawText("府南新区站", x, y, p1);break;
-		case 11:canvas.drawText("蜀汉路口北站", x, y, p1); break;
-		case 10:canvas.drawText("营门口北站", x, y, p1);break;
-		case 9:canvas.drawText("西南交大站", x, y, p1);break;
-		case 8:canvas.drawText("商贸大道口站", x, y, p1);break;
-		case 7:canvas.drawText("火车北站东站", x, y, p1);break;
+		case 28:canvas.drawText("双桥子北站", x, y, p1);break;
+		case 27:canvas.drawText("双桥子南站", x, y, p1);break;
+		case 26:canvas.drawText("牛市口站", x, y, p1);break;
+		case 25:canvas.drawText("莲桂东路口站", x, y, p1);break;
+		case 24:canvas.drawText("龙舟路口站", x, y, p1);break;
+		case 23:canvas.drawText("成仁公交站", x, y, p1);break;
+		case 22:canvas.drawText("东湖公园站", x, y, p1);break;
+		case 21:canvas.drawText("科华路口站", x, y, p1);break;
+		case 20:canvas.drawText("人南立交东站", x, y, p1);break;
+		case 19:canvas.drawText("紫荆北路口站", x, y, p1);break;		
+		case 18:canvas.drawText("红牌楼东站",x, y, p1);break;
+		case 17:canvas.drawText("红牌楼西站", x, y, p1);break;
+		case 16:canvas.drawText("少陵路口站", x, y, p1);break;
+		case 15:canvas.drawText("清水河站", x, y, p1);break;
+		case 14:canvas.drawText("光华村街口站", x, y, p1);break;
+		case 13:canvas.drawText("府南新区站", x, y, p1);break;
+		case 12:canvas.drawText("蜀汉路口北站", x, y, p1); break;
+		case 11:canvas.drawText("营门口北站", x, y, p1);break;
+		case 10:canvas.drawText("西南交大站", x, y, p1);break;
+		case 9:canvas.drawText("商贸大道口站", x, y, p1);break;
+		case 8:canvas.drawText("火车北站西站", x, y, p1);break;
+		case 7:canvas.drawText("高笋塘站", x, y, p1);break;
 		case 6:canvas.drawText("三友路口站", x, y, p1);break;
 		case 5:canvas.drawText("桃蹊路口站", x, y, p1);break;
 		case 4:canvas.drawText("建设路口站", x, y, p1);break;
 		case 3:canvas.drawText("建设南口路站", x, y, p1);break;
 		case 2:canvas.drawText("杉板桥站", x, y, p1);break;
-		case 1:canvas.drawText("双林北支路路口站", x, y, p1);break;
+		case 1:canvas.drawText("双林北支路口站", x, y, p1);break;
 		case 0:canvas.drawText("万年场站", x, y, p1);break;
 		}
 		}
@@ -499,7 +500,7 @@ public class MyTurnplateView2 extends View implements  OnTouchListener{
 			case 5:canvas.drawText("火车北站西站", x, y, p1);break;
 			case 6:canvas.drawText("商贸大道口站", x, y, p1);break;
 			case 7:canvas.drawText("西南交大站", x, y, p1);break;
-			case 8:canvas.drawText("营门口北", x, y, p1);break;
+			case 8:canvas.drawText("营门口北站", x, y, p1);break;
 			case 9:canvas.drawText("蜀汉路口北站", x, y, p1);break;		
 			case 10:canvas.drawText("府南新区站",x, y, p1);break;
 			case 11:canvas.drawText("光华村街口站", x, y, p1);break;
@@ -519,6 +520,7 @@ public class MyTurnplateView2 extends View implements  OnTouchListener{
 			case 25:canvas.drawText("双桥子北站", x, y, p1);break;
 			case 26:canvas.drawText("万年场站", x, y, p1);break;
 			case 27:canvas.drawText("双林北支路口站",x, y, p1);break;
+			case 28:canvas.drawText("杉板桥站",x, y, p1);break;
 			}
 		}
 	}

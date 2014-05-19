@@ -20,9 +20,9 @@ public class welcome extends Activity{
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.welcome);
 		
-		 SharedPreferences preferences = getSharedPreferences("data", 0);
+		 SharedPreferences preferences = getSharedPreferences("data", 1);
 
-         count = preferences.getInt("count", 0);
+         count = preferences.getInt("count", 1);
         
 		new Handler().postDelayed(new Runnable() {			
 			@Override
@@ -33,7 +33,7 @@ public class welcome extends Activity{
 				if (count!=0) {             
 	                 intent.setClass(welcome.this, MainActivity.class);
 	         } else {
-	                 Editor sharedata = getSharedPreferences("data", 0).edit();
+	                 Editor sharedata = getSharedPreferences("data", 1).edit();
 	                 sharedata.putInt("count", 1);
 	                 sharedata.commit();
 	                 intent.setClass(welcome.this, SwitchViewDemoActivity.class);
